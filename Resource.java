@@ -39,7 +39,6 @@ class Resource {
     }
     
     public String toString(){
-        return String.format("\n%-20s %-15s %-10s\n", status, title, author, genre);
+        return String.format("%-12s %-15s %-25s %-20s %-15s\n", status, itemId, title, author, genre);
     }
 }
-
