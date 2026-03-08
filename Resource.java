@@ -9,23 +9,21 @@
  */
 class Resource {
     private String title;
-    private String id;
-    private String genre;
-    private String status;
+    private String itemId;
+    private String genre; // category
+    private String status; // available, borrowed, reserved
+    private String author; 
     
-    public Resource(String title, String id, String genre) {
+    public Resource(String title, String itemId, String genre, String author) {
         this.title = title;
-        this.id = id;
+        this.itemId = itemId;
+        this.author = author;
         this.genre = genre;
         this.status = "Available";
     }
     
     public String getTitle(){
         return title;
-    }
-    
-    public String getId(){
-        return id;
     }
     
     public String getGenre(){
@@ -40,7 +38,8 @@ class Resource {
         this.status = status;
     }
     
-    public void displayDetails(){
-        System.out.printf("\n%-10s %-25s %s\n", "ID: " , "Title: ", "Status: ");
+    public String toString(){
+        return String.format("\n%-20s %-15s %-10s\n", status, title, author, genre);
     }
 }
+
