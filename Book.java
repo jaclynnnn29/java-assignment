@@ -11,13 +11,7 @@ public class Book extends Resource {
     private String isbn;
     
     public Book(String itemId, String title, String author, String genre, String isbn){
-        super(itemId, title, author, genre);
-        this.isbn =  isbn;
+        super(title, itemId, genre, author);
+        this.isbn = isbn;
     }
-    
-    public String toString(){
-        return super.toString() + isbn;
-    }
-    
 }
-
