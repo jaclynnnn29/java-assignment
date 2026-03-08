@@ -5,75 +5,58 @@
 
 /**
  *
- * @author ceexi
+ * @author jaclynnnnn
  */
 public class Catalog {
     
-    private String catelogID;
-    private Resources[] LibraryItem;   
+    private String catalogId;
+    private Resource[] libraryItems; 
     private int totalItems;
-            
-    public Catalog(String catelogID,int items){
-        this.catelogID = catelogID;
-        this.LibraryItem = new Resources[items];
-        this.totalItems = 0 ;
-    }
-    public void addItems(Resources item){
-        if (totalItems < LibraryItem.length){
-            LibraryItem[totalItems] = item;
-            totalItems++;
-        }else{
-            System.out.println("Your borrowing limit is fulled.");
-        }
-    }
-    public void removeItems(String title){
-        for(int i=0 ; i < totalItems ; i++){
-            if(LibraryItem[i].getTitle().equalsIgnoreCase((title))){
-                
-                for(int j = i;j < totalItems - 1;j++){
-                    LibraryItem[j] = LibraryItem[j + 1];
-                }
-                LibraryItem[totalItems - 1] = null;
-                totalItems--;
-                break;
-            }
-        }
-            
-    }
-    public Resources searchByTitle(String title){
-        for (int i=0 ; i < totalItems ; i++){
-            if(LibraryItem[i].getTitle().equalsIgnoreCase(title)){
-                return LibraryItem[i];
-            }
-        }
-        System.out.println("Not Found");
-        return null;
-    }
-    public Resources searchById(String id){
-        for (int i=0 ; i < totalItems ; i++){
-            if(LibraryItem[i].getId().equalsIgnoreCase(id)){
-                return LibraryItem[i];
-            }
-        }
-        System.out.println("Not Found");
-        return null;
-    }
-    public Resources searchByGenre(String genre){
-        for (int i=0 ; i < totalItems ; i++){
-            if(LibraryItem[i].getId().equalsIgnoreCase(genre)){
-                return LibraryItem[i];
-            }
-        }
-        System.out.println("Not Found");
-        return null;
-    }
-    public int getTotalItems(){
-        return totalItems;
-    }
-    public void displayItems(){
-        for(int i=0 ; i < totalItems; i++){
-            System.out.println(LibraryItem[i]);
-        }
-    }
-}         
 
+    public Catalog(String catalogId, int capacity) {
+        this.catalogId = catalogId;
+        this.libraryItems = new Resource[capacity];
+        this.totalItems = 0;
+    }
+
+  
+    public void addItems(Resource item) {
+        if (totalItems < libraryItems.length) {
+            libraryItems[totalItems] = item;
+            totalItems++;
+        } else {
+            System.out.println("Catalog is full!!!!!");
+        }
+    }
+
+  
+    public Resource searchByTitle(String title) {
+        for (int i = 0; i < totalItems; i++) {
+            if (libraryItems[i].getTitle().equalsIgnoreCase(title)) {
+                return libraryItems[i];
+            }
+        }
+        return null;
+    }
+
+
+    public void searchByGenre(String genre) {
+        boolean found = false;
+        for (int i = 0; i < totalItems; i++) {
+
+            if (libraryItems[i].getGenre().equalsIgnoreCase(genre)) {
+                System.out.println(libraryItems[i]);
+                found = true;
+            }
+        }
+        if (!found) System.out.println("No items found in genre: " + genre);
+    }
+
+
+    public void displayItems() {
+        for (int i = 0; i < totalItems; i++) {
+            System.out.println(libraryItems[i]); 
+        }
+    }
+}
+}
