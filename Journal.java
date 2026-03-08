@@ -11,14 +11,12 @@ public class Journal extends Resource {
     private int issueNo;
     
     public Journal(String itemId, String title, String author, String genre, int issueNo){
-        super(itemId, title, author, genre);
+        super(title, itemId, genre, author);
         this.issueNo = issueNo;
     }
     
     public String toString(){
-        return super.toString() + issueNo;
+        return super.toString() + String.format(" | Issue: %-5d", issueNo);
     }
     
 }
-
-
