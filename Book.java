@@ -8,15 +8,16 @@
  * @author jaclynnnnn
  */
 public class Book extends Resource {
-    private int pageCount;
+    private String isbn;
     
-    public Book(String title, String id, String genre, int pageCount){
-        super(title, id, genre);
-        this.pageCount = pageCount;
+    public Book(String itemId, String title, String author, String genre, String isbn){
+        super(itemId, title, author, genre);
+        this.isbn =  isbn;
     }
     
-    public void displayDetails(){
-        System.out.printf("\n%-10s %-25s %s\n", "ID: " , "Title: ", "Status: ", getId(), getTitle(), pageCount, getStatus());
+    public String toString(){
+        return super.toString() + isbn;
     }
     
 }
+
