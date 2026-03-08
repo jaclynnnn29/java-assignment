@@ -8,15 +8,17 @@
  * @author jaclynnnnn
  */
 public class Journal extends Resource {
-    private int volume;
+    private int issueNo;
     
-    public Journal(String title, String genre, int volume){
-        super(title, genre);
-        this.volume = volume;
+    public Journal(String itemId, String title, String author, String genre, int issueNo){
+        super(itemId, title, author, genre);
+        this.issueNo = issueNo;
     }
     
     public String toString(){
-        return String.format("%-10s %-8d %-6d %-10s -15d", getTitle(), getId(), getGenre(), volume);
+        return super.toString() + issueNo;
     }
     
 }
+
+
