@@ -46,6 +46,14 @@ public class User {
         }
     }
 
+    public int getBorrowLimit() {
+        return 0; // Default
+    }
+
+    public int getBorrowDuration() {
+        return 0; // Default
+    }
+
     @Override  
     public String toString() {
         return String.format("User Type: %15s |ID: %-5s | Name: %-15s | Email: %-20s" , userType, userId, userName, userEmail);

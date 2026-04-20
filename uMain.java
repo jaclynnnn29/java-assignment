@@ -207,8 +207,7 @@ public class uMain {
     int choice;
         do {
             System.out.println("\n===== SMART LIBRARY SYSTEM =====");
-            System.out.println("1. Borrow a Book"); 
-            System.out.println("2. Return a Book");
+            System.out.println("1. Check Borrowlimit and Duration"); 
             System.out.println("0. Logout");
             System.out.print("Choice: ");
 
@@ -216,10 +215,7 @@ public class uMain {
 
             switch (choice) {
                 case 1:
-                    System.out.println("borrowBook()");
-                    break;
-                case 2:
-                    System.out.println("returnBook()");
+                    checkBorrowLimits();
                     break;
                 case 0:
                     currentUser = null;
@@ -229,6 +225,15 @@ public class uMain {
                     System.out.println("Invalid Input.");
             }
         } while (currentUser != null);
+    }
+
+    private static void checkBorrowLimits() {
+        if (currentUser == null) return;
+
+        System.out.println("\n--- Borrowing Rules for " + currentUser.getuserName() + " ---");
+        System.out.println("Max Books Allowed: " + currentUser.getBorrowLimit());
+        System.out.println("Loan Duration: " + currentUser.getBorrowDuration() + " days");
+        
     }
 }
 
