@@ -8,28 +8,45 @@ package inventory;
  *
  * @author jaclynnnnn
  */
-class LibraryItem {
+public class LibraryItem {
     private String title;
     private String itemId;
     private String genre; // category
     private String status; // available, borrowed, reserved
     private String author; 
+
+    public static final String STATUS_AVAILABLE = "Available";
+    public static final String STATUS_BORROWED = "Borrowed";
+    public static final String STATUS_RESERVED = "Reserved";
     
     public LibraryItem(String title, String itemId, String genre, String author) {
         this.title = title;
         this.itemId = itemId;
         this.author = author;
         this.genre = genre;
-        this.status = "Available";
+        this.status = STATUS_AVAILABLE;
     }
     
     public String getTitle(){
         return title;
     }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+    
+    public String getItemId(){
+        return itemId;
+    }
     
     public String getGenre(){
         return genre;
     }
+
+    public void setGenre(String genre){
+        this.genre = genre;
+    }
+
     
     public String getStatus(){
         return status;
