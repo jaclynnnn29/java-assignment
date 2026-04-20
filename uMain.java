@@ -78,6 +78,8 @@ public class uMain {
         currentUser = manager.login(id);
         if (currentUser != null) {
             System.out.println("Login Success! Hello, " + currentUser.getuserName());
+            System.out.println("Your Borrow Limit is: " + currentUser.getBorrowLimit() + 
+                            " Your Duration is: " + currentUser.getBorrowDuration() + " days");
         } else {
             System.out.println("User not found! Please check your ID or register.");
         }
@@ -212,7 +214,7 @@ public class uMain {
     int choice;
         do {
             System.out.println("\n===== SMART LIBRARY SYSTEM =====");
-            System.out.println("1. Check Borrowlimit and Duration"); 
+            System.out.println("1. Borrow Book"); 
             System.out.println("0. Logout");
             System.out.print("Choice: ");
 
@@ -220,7 +222,7 @@ public class uMain {
 
             switch (choice) {
                 case 1:
-                    checkBorrowLimits();
+                    System.out.print("borrowBook()");
                     break;
                 case 0:
                     currentUser = null;
@@ -231,15 +233,8 @@ public class uMain {
             }
         } while (currentUser != null);
     }
+    
 
-    private static void checkBorrowLimits() {
-        if (currentUser == null) return;
-
-        System.out.println("\n--- Borrowing Rules for " + currentUser.getuserName() + " ---");
-        System.out.println("Max Books Allowed: " + currentUser.getBorrowLimit());
-        System.out.println("Loan Duration: " + currentUser.getBorrowDuration() + " days");
-        
-    }
 }
 
 
