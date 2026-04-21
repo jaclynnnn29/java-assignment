@@ -133,12 +133,12 @@ public class uMain {
 
     // Registration 
     private static void register() {
-        System.out.println("\n === REGISTER NEW USER === ");
+        System.out.println("\n ===== REGISTER NEW USER ===== ");
         System.out.println("Select Type: ");
         System.out.println("1. Student ");
         System.out.println("2. Faculty ");
         System.out.println("3. Librarian");
-        System.out.println("4. Public");
+        System.out.println("4. Public Member");
         System.out.print("Choice: ");
         int type = readInt();
 
