@@ -17,10 +17,20 @@ public class Reservation {
     }
 
     // Getters
-    public String getItemISBN() { return itemISBN; }
-    public String getMemberID() { return memberID; }
-    public boolean isFulfilled() { return isFulfilled; }
+    public String getItemISBN() { 
+        return itemISBN; 
+    }
+
+    public String getMemberID() {
+        return memberID; 
+    }
+    
+    public boolean isFulfilled() { 
+        return isFulfilled;
+    }
     
     // Setter for when the book becomes available
-    public void setFulfilled(boolean fulfilled) { isFulfilled = fulfilled; }
+    public void setFulfilled(boolean fulfilled) { 
+        this.isFulfilled = fulfilled; 
+    }
 }

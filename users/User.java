@@ -8,7 +8,7 @@ package users;
  *
  * @author ASUS
  */
-public class User {
+public abstract class User {
     private final String userId;
     private String userName;
     private String userEmail;
@@ -21,12 +21,13 @@ public class User {
         this.userType = userType;
         setuserEmail(userEmail);
     }
-    public abstract int getBorrowLimit();
-    public abstract int getBorrowDuration();
+
     //Getters
     public String getuserId() {
         return userId;
     }
+
+    public abstract double getFineRate();
 
     public String getuserName() {
         return userName;

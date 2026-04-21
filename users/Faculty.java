@@ -19,6 +19,11 @@ public class Faculty extends User {
     }
 
     @Override
+    public double getFineRate() { 
+        return 0.75; 
+    }
+
+    @Override
     public int getBorrowLimit() {
         return BORROW_LIMIT;
     }

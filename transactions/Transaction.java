@@ -1,11 +1,12 @@
 package transactions;
 import java.util.Date;
+import users.User;
 import java.util.Calendar;
 
 public class Transaction {
     // Encapsulation: Private attributes [cite: 58]
     private String transactionID;
-    private String memberID;
+    private User userID;
     private String itemISBN;
     private Date issueDate;
     private Date dueDate;
@@ -13,9 +14,9 @@ public class Transaction {
     private boolean isReturned;
 
     // Constructor
-    public Transaction(String transactionID, String memberID, String itemISBN, int loanDuration) {
+    public Transaction(String transactionID, User userID, String itemISBN, int loanDuration) {
         this.transactionID = transactionID;
-        this.memberID = memberID;
+        this.userID = userID;
         this.itemISBN = itemISBN;
         this.issueDate = new Date(); // Current date
         this.isReturned = false;
@@ -28,12 +29,26 @@ public class Transaction {
     }
 
     // Getters and Setters [cite: 58]
-    public String getTransactionID() { return transactionID; }
-    public Date getDueDate() { return dueDate; }
-    public boolean isReturned() { return isReturned; }
+    public String getTransactionID() { 
+        return transactionID; 
+    }
+    
+    public Date getDueDate() { 
+        return dueDate; 
+
+    }
+
+    public boolean isReturned() { 
+        return isReturned; 
+    }
+
+    public User getMember() { 
+        return userID; 
+    }
     
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
         this.isReturned = true;
     }
+    
 }

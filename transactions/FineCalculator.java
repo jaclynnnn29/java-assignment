@@ -5,8 +5,10 @@ public class FineCalculator {
     public double calculateTotalFine(Transaction trans, int daysOverdue) {
         if (daysOverdue <= 0) return 0.0;
         
-        double ratePerDay = 0.50; // Default rate
-        // The system checks if overdue and calculates fine [image_fb2783.png]
+        // Polmorphism in action: 
+        // The rate is determined by the specific User type at runtime.
+        double ratePerDay = trans.getMember().getFineRate();
+
         return daysOverdue * ratePerDay;
     }
 }

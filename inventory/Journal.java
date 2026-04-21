@@ -9,15 +9,15 @@ package inventory;
  * @author jaclynnnnn
  */
 public class Journal extends LibraryItem {
-    private int issueNo;
+    private int volumeNumber;
     
-    public Journal(String itemId, String title, String author, String genre, int issueNo){
-        super(title, itemId, genre, author);
-        this.issueNo = issueNo;
+    public Journal(String itemId, String title, String author, int volumeNumber){
+        super(title, itemId, author);
+        this.volumeNumber = volumeNumber;
     }
     
     public String toString(){
-        return super.toString() + String.format(" | Issue: %-5d", issueNo);
+        return super.toString() + String.format(" | Volume: %-5d", volumeNumber);
     }
     
 }

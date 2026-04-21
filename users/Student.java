@@ -18,6 +18,11 @@ public class Student extends User {
     }
 
     @Override
+    public double getFineRate() { 
+        return 0.25; 
+    }
+
+    @Override
     public int getBorrowLimit() { 
         return BORROW_LIMIT; 
     }
