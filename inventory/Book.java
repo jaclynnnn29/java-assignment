@@ -9,10 +9,24 @@ package inventory;
  * @author jaclynnnnn
  */
 public class Book extends LibraryItem {
-    private String isbn;
+    private String genre;// category
     
-    public Book(String itemId, String title, String author, String genre, String isbn){
-        super(title, itemId, genre, author);
-        this.isbn = isbn;
+    public Book(String title, String itemISBN, String author, String genre) {
+        super(title, itemISBN, author);
+        this.genre = genre;
+    }
+    public String getGenre(){
+        return genre;
+    }
+
+    public void setGenre(String genre){
+        this.genre = genre;
+    }
+
+    @Override
+    public String toString(){
+        return super.toString() + String.format("%-15s\n", genre);
     }
 }
+
+ 

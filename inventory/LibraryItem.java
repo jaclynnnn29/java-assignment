@@ -10,8 +10,7 @@ package inventory;
  */
 public class LibraryItem {
     private String title;
-    private String itemId;
-    private String genre; // category
+    private String itemISBN; 
     private String status; // available, borrowed, reserved
     private String author; 
 
@@ -19,11 +18,10 @@ public class LibraryItem {
     public static final String STATUS_BORROWED = "Borrowed";
     public static final String STATUS_RESERVED = "Reserved";
     
-    public LibraryItem(String title, String itemId, String genre, String author) {
+    public LibraryItem(String title, String itemISBN, String author) {
         this.title = title;
-        this.itemId = itemId;
+        this.itemISBN = itemISBN;
         this.author = author;
-        this.genre = genre;
         this.status = STATUS_AVAILABLE;
     }
     
@@ -35,19 +33,10 @@ public class LibraryItem {
         this.title = title;
     }
     
-    public String getItemId(){
-        return itemId;
+    public String getItemISBN(){
+        return itemISBN;
     }
-    
-    public String getGenre(){
-        return genre;
-    }
-
-    public void setGenre(String genre){
-        this.genre = genre;
-    }
-
-    
+        
     public String getStatus(){
         return status;
     }
@@ -56,7 +45,8 @@ public class LibraryItem {
         this.status = status;
     }
     
+    @Override
     public String toString(){
-        return String.format("%-12s %-15s %-25s %-20s %-15s\n", status, itemId, title, author, genre);
+        return String.format("%-12s %-15s %-25s %-20s %-15s\n", status, itemISBN, title, author);
     }
 }

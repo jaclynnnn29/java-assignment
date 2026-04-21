@@ -19,8 +19,10 @@ public class User {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userType = userType;
+        setuserEmail(userEmail);
     }
-
+    public abstract int getBorrowLimit();
+    public abstract int getBorrowDuration();
     //Getters
     public String getuserId() {
         return userId;
