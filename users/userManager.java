@@ -12,7 +12,7 @@ import java.util.Comparator;
  *
  * @author ASUS
  */
-public class userManager { 
+public class UserManager { 
     //User[] userArray = new User[100];
     private final List<User> userList = new ArrayList<>(); 
     //private int nextId = 1001;

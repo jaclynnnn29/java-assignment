@@ -17,7 +17,6 @@ public abstract class User {
     public User(String userId, String userName, String userEmail, String userType){
         this.userId = userId;
         this.userName = userName;
-        this.userEmail = userEmail;
         this.userType = userType;
         setuserEmail(userEmail);
     }

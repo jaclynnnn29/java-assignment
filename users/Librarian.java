@@ -20,6 +20,11 @@ public class Librarian extends User {
     }
 
     @Override
+    public double getFineRate() { 
+        return 0.0; 
+    }
+
+    @Override
     public int getBorrowLimit() {
         return BORROW_LIMIT;
     }

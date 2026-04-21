@@ -28,6 +28,11 @@ public class PublicMember extends User {
     }
 
     @Override
+    public double getFineRate() { 
+        return 1.00; 
+    }
+
+    @Override
     public int getBorrowLimit() { 
         return BORROW_LIMIT; 
     }

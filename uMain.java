@@ -4,7 +4,7 @@ import java.util.Scanner;
 import users.PublicMember;
 import users.Student;
 import users.User;
-import users.userManager;
+import users.UserManager;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,7 +16,7 @@ import users.userManager;
  * @author ASUS
  */
 public class uMain {
-    private static final userManager manager = new userManager(); 
+    private static final UserManager manager = new UserManager(); 
     private static final Scanner sc = new Scanner(System.in); 
     private static User currentUser = null; 
 
