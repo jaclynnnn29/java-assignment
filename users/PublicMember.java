@@ -10,13 +10,23 @@ package users;
  */
  
 public class PublicMember extends User {
+    private int phoneNumber;
     private static final int BORROW_LIMIT = 2;
     private static final int BORROW_DAYS = 7;
 
     public PublicMember(String userId, String userName, String userEmail) {
         super(userId, userName, userEmail, "Public");
+        this.phoneNumber = 0;
     }
     
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public int getBorrowLimit() { 
         return BORROW_LIMIT; 
@@ -29,7 +39,8 @@ public class PublicMember extends User {
 
     @Override
     public String toString() {
-        return super.toString() + " | Limit: " + BORROW_LIMIT + " books (" + BORROW_DAYS + " days)";
+        return super.toString() + " | Phone: " + phoneNumber + 
+        " | Limit: " + BORROW_LIMIT + " books (" + BORROW_DAYS + " days)";
     }
 
 }

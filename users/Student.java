@@ -1,11 +1,19 @@
 package users;
 public class Student extends User {
-    private final String studentId; 
+    private String studentId; 
     private static final int BORROW_LIMIT = 5;
     private static final int BORROW_DAYS = 14;
 
     public Student(String userId, String userName, String userEmail, String studentId) {
         super(userId, userName, userEmail, "Student"); 
+        this.studentId = studentId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
