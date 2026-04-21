@@ -1,13 +1,21 @@
 package users;
 
 public class Librarian extends User { 
-    private final int staffLevel;
+    private int staffLevel;
     private static final int BORROW_LIMIT = 20;
     private static final int BORROW_DAYS = 60;
 
 
     public Librarian(String userId, String userName, String userEmail, int staffLevel) {
         super(userId, userName, userEmail, "Librarian");
+        this.staffLevel = staffLevel;
+    }
+
+    public int getStaffLevel() {
+        return staffLevel;
+    }
+
+    public void setStaffLevel(int staffLevel) {
         this.staffLevel = staffLevel;
     }
 

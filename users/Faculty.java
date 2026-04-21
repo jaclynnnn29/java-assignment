@@ -1,12 +1,20 @@
 package users;
 
 public class Faculty extends User {
-    private final String department;
+    private String department;
     private static final int BORROW_LIMIT = 10;
     private static final int BORROW_DAYS = 30;
 
     public Faculty(String userId, String userName, String userEmail, String department) {
         super(userId, userName, userEmail, "Faculty");
+        this.department = department;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+    
+    public void setDepartment(String department) {
         this.department = department;
     }
 
