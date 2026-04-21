@@ -8,13 +8,29 @@ package inventory;
  *
  * @author jaclynnnnn
  */
-class DigitalBook extends LibraryItem {
+public class DigitalBook extends LibraryItem {
     private String fileFormat; 
     private double fileSizeMB;
 
     public DigitalBook(String title, String itemISBN, String author, String genre, String fileFormat, double fileSizeMB) {
         super(title, itemISBN, author);
         this.fileFormat = fileFormat;
+        this.fileSizeMB = fileSizeMB;
+    }
+
+    public String getFileFormat() {
+        return fileFormat;
+    }
+
+    public void setFileFormat(String fileFormat) {
+        this.fileFormat = fileFormat;
+    }
+
+    public double getFileSizeMB() {
+        return fileSizeMB;
+    }
+
+    public void setFileSizeMB(double fileSizeMB) {
         this.fileSizeMB = fileSizeMB;
     }
 
