@@ -10,20 +10,20 @@ package users;
  */
  
 public class PublicMember extends User {
-    private int phoneNumber;
+    private String phoneNumber;
     private static final int BORROW_LIMIT = 2;
     private static final int BORROW_DAYS = 7;
 
-    public PublicMember(String userId, String userName, String userEmail) {
+    public PublicMember(String userId, String userName, String userEmail, String phoneNumber) {
         super(userId, userName, userEmail, "Public");
-        this.phoneNumber = 0;
+        this.phoneNumber = phoneNumber;
     }
-    
-    public int getPhoneNumber() {
+
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

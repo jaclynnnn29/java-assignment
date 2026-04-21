@@ -61,9 +61,9 @@ public class userManager {
         return newlibId;
     }
 
-    public String addPublicMember(String userName, String userEmail) {
+    public String addPublicMember(String userName, String userEmail, String phoneNumber) {
         String newpmId = generateId("P", publicCount++);
-        userList.add(new PublicMember(newpmId, userName, userEmail));
+        userList.add(new PublicMember(newpmId, userName, userEmail, phoneNumber));
         return newpmId;
     }
     

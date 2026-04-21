@@ -32,8 +32,8 @@ public class uMain {
         manager.addStudent("Alice", "alice@student.com", "S001");
         manager.addStudent("Bob", "bob@student.com", "S002");
 
-        manager.addPublicMember("Ana", "ana@example.com");
-        manager.addPublicMember("John", "john@example.com");
+        manager.addPublicMember("Ana", "ana@example.com", "023-456-7890");
+        manager.addPublicMember("John", "john@example.com", "098-765-4321");
 
         while (true) {
             if (currentUser == null) {
@@ -180,7 +180,9 @@ public class uMain {
                 System.out.println("-------------------------------------------");
                 break;
             case 4:
-                String newpmId = manager.addPublicMember(name, email);
+                System.out.print("Enter Phone Number: ");
+                String phoneNumber = sc.nextLine();
+                String newpmId = manager.addPublicMember(name, email, phoneNumber);
                 System.out.println("\n-------------------------------------------");
                 System.out.println("Registration Success for: " + name);
                 System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newpmId );
