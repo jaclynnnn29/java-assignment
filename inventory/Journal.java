@@ -11,13 +11,20 @@ package inventory;
 public class Journal extends LibraryItem {
     private int volumeNumber;
     
-    public Journal(String itemId, String title, String author, int volumeNumber){
-        super(title, itemId, author);
+    public Journal(String itemISBN, String title, String author, int volumeNumber){
+        super(title, itemISBN, author);
+        this.volumeNumber = volumeNumber;
+    }
+
+    public int getVolumeNumber() {
+        return volumeNumber;
+    }
+    public void setVolumeNumber(int volumeNumber) {
         this.volumeNumber = volumeNumber;
     }
     
     public String toString(){
-        return super.toString() + String.format(" | Volume: %-5d", volumeNumber);
+        return super.toString() + String.format(" | Volume: %-5d\n", volumeNumber);
     }
     
 }
