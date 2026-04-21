@@ -8,7 +8,7 @@ package inventory;
  *
  * @author jaclynnnnn
  */
-public class LibraryItem {
+public abstract class LibraryItem {
     private String title;
     private String itemISBN; 
     private String status; // available, borrowed, reserved

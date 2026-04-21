@@ -32,6 +32,14 @@ public class Transaction {
     public String getTransactionID() { 
         return transactionID; 
     }
+
+    public String getItemISBN() { 
+        return itemISBN; 
+    }
+
+    public Date getReturnDate() { 
+        return returnDate; 
+    }
     
     public Date getDueDate() { 
         return dueDate; 
@@ -50,5 +58,5 @@ public class Transaction {
         this.returnDate = returnDate;
         this.isReturned = true;
     }
-    
+
 }

@@ -17,6 +17,15 @@ public class Reservation {
     }
 
     // Getters
+
+    public String getReservationID() { 
+        return reservationID; 
+    }
+
+    public Date getRequestDate() { 
+        return requestDate; 
+    }
+
     public String getItemISBN() { 
         return itemISBN; 
     }
@@ -24,7 +33,7 @@ public class Reservation {
     public String getMemberID() {
         return memberID; 
     }
-    
+
     public boolean isFulfilled() { 
         return isFulfilled;
     }
