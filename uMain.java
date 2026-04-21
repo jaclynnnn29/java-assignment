@@ -72,7 +72,7 @@ public class uMain {
 
     private static void Login() {
         System.out.println("Login Page");
-        System.out.print("\nEnter User ID to Login (e.g., L001): ");
+        System.out.print("\nEnter User ID to Login (e.g., L00X): ");
         String id = sc.nextLine();
         
         currentUser = manager.login(id);
