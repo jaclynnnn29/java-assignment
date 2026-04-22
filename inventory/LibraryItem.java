@@ -11,7 +11,7 @@ package inventory;
 public abstract class LibraryItem {
     private String title;
     private String itemISBN; 
-    private String status; // available, borrowed, reserved
+    private String status = "Available"; // available, borrowed, reserved
     private String author; 
     private boolean available = true;
 
