@@ -345,11 +345,11 @@ public class Main {
     String isbn = sc.nextLine();
     LibraryItem item = catalogManager.findByIsbn(isbn);
     
-    if (item != null) {
-        transManager.borrowItem(currentUser, item);
-    } else {
-        System.out.println("Item not found.");
-    }
+        if (item != null) {
+            transManager.borrowItem(currentUser, item);
+        } else {
+            System.out.println("Item not found.");
+        }
     }
 
     private static void handleReturn() {
