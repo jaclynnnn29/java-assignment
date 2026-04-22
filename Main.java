@@ -376,8 +376,13 @@ public class Main {
     private static void handleReturn() {
         System.out.println("\n===== Return Item =====");
 
-        System.out.print("Enter ISBN of the item you are returning: ");
+        transManager.showUserActiveLoans(currentUser);
+
+        System.out.print("Enter ISBN of the item you want to return (or '0' to return page): ");
         String isbn = sc.nextLine();
+
+        if (isbn.equals("0")) return;
+
         transManager.returnItem(isbn, catalogManager);
     }
 

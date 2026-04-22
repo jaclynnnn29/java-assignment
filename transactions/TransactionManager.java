@@ -76,6 +76,27 @@ public class TransactionManager {
         System.out.println("Good Job you made it on time no compensation needed!");
     }
 
+    public void showUserActiveLoans(User user) {
+        System.out.println("\nYour Current Active Loans");
+        System.out.println("=".repeat(100));
+        System.out.printf("%-30s %-20s %-30s\n", "Transaction ID", "ISBN", "Due Date");
+        System.out.println("=".repeat(100));
+        
+        boolean found = false;
+        for (Transaction t : transactions) {
+            if (t.getMember().getuserId().equalsIgnoreCase(user.getuserId()) && !t.isReturned()) {
+                System.out.printf("%-30s %-20s %-30s\n", 
+                    t.getTransactionID(), t.getItemISBN(), t.getDueDate());
+                found = true;
+            }
+        }
+        
+        if (!found) {
+            System.out.println("You have no active loans to return.");
+        }
+        System.out.println("=".repeat(100));
+    }
+
     public void showActiveTransactions() {
         System.out.println("\n--- Current Active Loans ---");
         for (Transaction t : transactions) {
