@@ -1,7 +1,7 @@
 package transactions;
 
 import inventory.LibraryItem;
-import inventory.catalogManager;
+import inventory.CatalogManager;
 import users.User;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +48,7 @@ public class TransactionManager {
     }
 
     // Returning Logic
-    public void returnItem(String isbn, catalogManager catalog) {
+    public void returnItem(String isbn, CatalogManager catalog) {
         for (Transaction t : transactions) {
             if (t.getItemISBN().equals(isbn) && !t.isReturned()) {
                 t.setReturnDate(new Date());
