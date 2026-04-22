@@ -40,16 +40,16 @@ public class uMain {
         while (true) {
             if (currentUser == null) {
                 System.out.println("\n === Welcome to Library Management System! ===");
-                System.out.println("1. Login");
-                System.out.println("2. New User");
+                System.out.println("1. Login Existing Account");
+                System.out.println("2. Register New Account");
                 System.out.println("0. Exit System");
                 System.out.print("Choice: ");
                 
                 int n = readInt();
                 
                 if (n == 0) {
-                System.out.println("Goodbye!");
-                break; 
+                    System.out.println("Goodbye!");
+                    break; 
                 }
                
                 switch (n) {
@@ -139,9 +139,7 @@ public class uMain {
         System.out.println("\n ===== REGISTER NEW USER ===== ");
         System.out.println("Select Type: ");
         System.out.println("1. Student ");
-        System.out.println("2. Faculty ");
-        System.out.println("3. Librarian");
-        System.out.println("4. Public Member");
+        System.out.println("2. Public Member");
         System.out.print("Choice: ");
         int type = readInt();
 
@@ -153,7 +151,7 @@ public class uMain {
         switch (type) {
             
             case 1:
-                System.out.print("Enter your Real Student ID : ");
+                System.out.print("Enter your Student ID (Number Only): ");
                 String studentId = sc.nextLine();
                 String newId = manager.addStudent(name, email, studentId);
                 System.out.println("\nWelcome to our Library\n");
