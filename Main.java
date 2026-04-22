@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import transactions.TransactionManager;
 import inventory.Book;
 import inventory.DigitalBook;
 import inventory.Journal;
@@ -24,6 +24,7 @@ import users.UserManager;
 public class Main {
     private static final UserManager manager = new UserManager(); 
     private static catalogManager catalogManager = new catalogManager();
+    private static final TransactionManager transManager = new TransactionManager();
     private static final Scanner sc = new Scanner(System.in); 
     private static User currentUser = null; 
 
@@ -227,13 +228,16 @@ public class Main {
             System.out.println("\n===== CATALOG & BOOK SYSTEM =====");
             System.out.println("1. View All Items (Books/Journals)");
             System.out.println("2. Search by ISBN");
+            System.out.println("3. Borrow Item");
+            System.out.println("4. Return Item");
+
             
             // Check if user is staff (Librarian or Faculty)
             boolean isStaff = (currentUser instanceof Librarian || currentUser instanceof Faculty);
             
             if (isStaff) {
-                System.out.println("3. Add New Item (Staff Only)");
-                System.out.println("4. Delete Item (Staff Only)");
+                System.out.println("5. Add New Item (Staff Only)");
+                System.out.println("6. Delete Item (Staff Only)");
             }
             
             System.out.println("0. Back to Main Menu");
@@ -248,10 +252,18 @@ public class Main {
                     searchISBN(); 
                     break;
                 case 3:
+                    handleBorrowing();
+                    System.out.println("Borrowing functionality not implemented yet.");
+                    break;
+                case 4:
+                    handleReturn();
+                    System.out.println("Returning functionality not implemented yet.");
+                    break;
+                case 5:
                     if (isStaff) addNewItem(); // Call registration logic
                     else System.out.println("Access Denied!");
                     break;
-                case 4:
+                case 6:
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
@@ -332,5 +344,22 @@ public class Main {
         }
     }
     
+    private static void handleBorrowing() {
+    System.out.print("Enter ISBN to borrow: ");
+    String isbn = sc.nextLine();
+    LibraryItem item = catalogManager.findByIsbn(isbn);
+    
+        if (item != null) {
+            transManager.borrowItem(currentUser, item);
+        } else {
+            System.out.println("Item not found.");
+        }
+    }
+
+    private static void handleReturn() {
+        System.out.print("Enter ISBN of the item you are returning: ");
+        String isbn = sc.nextLine();
+        transManager.returnItem(isbn, catalogManager);
+    }
 
 }
