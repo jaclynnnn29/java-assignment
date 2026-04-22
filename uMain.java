@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import inventory.LibraryItem;
+import users.Faculty;
+import users.Librarian;
 import users.PublicMember;
 import users.Student;
 import users.User;
@@ -212,27 +215,46 @@ public class uMain {
     
    
     public static void bookManagement() {
-    int choice;
+        int choice;
         do {
-            System.out.println("\n===== SMART LIBRARY SYSTEM =====");
-            System.out.println("1. Borrow Book"); 
-            System.out.println("0. Logout");
+            System.out.println("\n===== CATALOG & BOOK SYSTEM =====");
+            System.out.println("1. View All Items (Books/Journals)");
+            System.out.println("2. Search by ISBN");
+            
+            // Check if user is staff (Librarian or Faculty)
+            boolean isStaff = (currentUser instanceof Librarian || currentUser instanceof Faculty);
+            
+            if (isStaff) {
+                System.out.println("3. Add New Item (Staff Only)");
+                System.out.println("4. Delete Item (Staff Only)");
+            }
+            
+            System.out.println("0. Back to Main Menu");
             System.out.print("Choice: ");
-
             choice = readInt();
 
             switch (choice) {
                 case 1:
-                    System.out.print("borrowBook()");
+                    catalogManager.showAllItems(); 
+                    break;
+                case 2:
+                    searchISBN(); 
+                    break;
+                case 3:
+                    if (isStaff) addNewItem(); // Call registration logic
+                    else System.out.println("Access Denied!");
+                    break;
+                case 4:
+                    if (isStaff) deleteItem(); // Call deletion logic
+                    else System.out.println("Access Denied!");
                     break;
                 case 0:
-                    currentUser = null;
-                    System.out.println("Logged out...");
+                    System.out.println("Returning to main menu...");
                     break;
                 default:
-                    System.out.println("Invalid Input.");
+                    System.out.println("Error! Invalid selection.");
             }
-        } while (currentUser != null);
+        } while (choice != 0);
     }
     
 

@@ -36,6 +36,14 @@ public abstract class LibraryItem {
     public String getItemISBN(){
         return itemISBN;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
         
     public String getStatus(){
         return status;

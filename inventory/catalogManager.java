@@ -1,0 +1,59 @@
+package inventory;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author jaclynnnnn
+ */
+public class catalogManager {
+    private final List<LibraryItem> itemList = new ArrayList<>();
+
+    // Create - Polymorphism in action
+    public void addItem(LibraryItem item) {
+        itemList.add(item);
+        System.out.println("Item added successfully: " + item.getTitle());
+    }
+
+    // Read (Show all)
+    public void showAllItems() {
+        if (itemList.isEmpty()) {
+            System.out.println("The catalog is empty.");
+            return;
+        }
+        System.out.println("\n--- Library Catalog ---");
+        // Matches the format in your LibraryItem toString()
+        System.out.printf("%-12s %-15s %-25s %-20s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
+        System.out.println("-----------------------------------------------------------------------------------------");
+        for (LibraryItem item : itemList) {
+            System.out.print(item.toString()); 
+        }
+    }
+
+    // Update - Using the setters from LibraryItem
+    public boolean updateItem(String isbn, String newTitle, String newAuthor) {
+        LibraryItem item = findByIsbn(isbn);
+        if (item != null) {
+            item.setTitle(newTitle);
+            // Ensure you added setAuthor(String author) to LibraryItem!
+            item.setAuthor(newAuthor); 
+            return true;
+        }
+        return false;
+    }
+
+    // Delete
+    public boolean deleteItem(String isbn) {
+        return itemList.removeIf(item -> item.getItemISBN().equalsIgnoreCase(isbn));
+    }
+
+    // Search by ISBN
+    public LibraryItem findByIsbn(String isbn) {
+        for (LibraryItem item : itemList) {
+            if (item.getItemISBN().equalsIgnoreCase(isbn)) {
+                return item;
+            }
+        }
+        return null;
+    }
+}
