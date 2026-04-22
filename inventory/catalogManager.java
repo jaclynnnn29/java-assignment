@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author jaclynnnnn
  */
-public class catalogManager {
+public class CatalogManager {
     private final List<LibraryItem> itemList = new ArrayList<>();
 
     // Create - Polymorphism in action

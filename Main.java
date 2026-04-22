@@ -6,7 +6,7 @@ import inventory.Book;
 import inventory.DigitalBook;
 import inventory.Journal;
 import inventory.LibraryItem;
-import inventory.catalogManager;
+import inventory.CatalogManager;
 import users.Faculty;
 import users.Librarian;
 import users.PublicMember;
@@ -25,7 +25,7 @@ import users.UserManager;
  */
 public class Main {
     private static final UserManager manager = new UserManager(); 
-    private static catalogManager catalogManager = new catalogManager();
+    private static CatalogManager catalogManager = new CatalogManager();
     private static final TransactionManager transManager = new TransactionManager();
     private static final Scanner sc = new Scanner(System.in); 
     private static User currentUser = null; 
@@ -368,7 +368,7 @@ public class Main {
     private static void  handleBorrowing() {
         System.out.print("Enter ISBN to borrow: ");
         String isbn = sc.nextLine();
-        LibraryItem item = catalogManager.findByIsbn(isbn);
+        LibraryItem item =  catalogManager.findByIsbn(isbn);
     
         if (item != null) {
             // CHECK FIRST: Is it available?
