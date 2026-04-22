@@ -23,7 +23,7 @@ public class catalogManager {
         }
         System.out.println("\n--- Library Catalog ---");
         // Matches the format in your LibraryItem toString()
-        System.out.printf("%-12s %-15s %-25s %-20s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
+        System.out.printf("%-12s %-15s %-35s %-30s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
         System.out.println("-----------------------------------------------------------------------------------------");
         for (LibraryItem item : itemList) {
             System.out.print(item.toString()); 
@@ -41,6 +41,7 @@ public class catalogManager {
         }
         return false;
     }
+
 
     // Delete
     public boolean deleteItem(String isbn) {

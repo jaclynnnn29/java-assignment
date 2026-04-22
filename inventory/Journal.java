@@ -24,7 +24,7 @@ public class Journal extends LibraryItem {
     }
     
     public String toString(){
-        return super.toString() + String.format(" | Volume: %-5d\n", volumeNumber);
+        return super.toString() + String.format(" Volume: %-15d\n", volumeNumber);
     }
     
 }

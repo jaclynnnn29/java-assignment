@@ -34,7 +34,7 @@ public class Main {
         manager.addLibrarian("EX", "ex@lib.com", 3);
 
         manager.addFaculty("ABC", "abc@faculty.com", "Computer Science");
-        manager.addFaculty("GG", "gg@faculty.com", "Mathematics");
+        manager.addFaculty("GG", "gg@faculty.com", "Mathe");
 
         manager.addStudent("Alice", "alice@student.com", "S001");
         manager.addStudent("Bob", "bob@student.com", "S002");
@@ -42,9 +42,13 @@ public class Main {
         manager.addPublicMember("Ana", "ana@example.com", "023-456-7890");
         manager.addPublicMember("John", "john@example.com", "098-765-4321");
 
+        catalogManager.addItem(new Book("The Great Gatsby", "9780743273565", "F. Scott Fitzgerald", "Fiction"));
+        catalogManager.addItem(new DigitalBook("Clean Code", "9780132350884", "Robert Martin", "PDF", 2.5));
+        catalogManager.addItem(new Journal("Journal of Computer Science", "2023", "CS Publisher", 42));
+
         while (true) {
             if (currentUser == null) {
-                System.out.println("\n === Welcome to Library Management System! ===");
+                System.out.println("\n === Welcome to Library Management System ===");
                 System.out.println("1. Login Existing Account");
                 System.out.println("2. Register New Account");
                 System.out.println("0. Exit System");
@@ -78,15 +82,15 @@ public class Main {
     }
 
     private static void Login() {        
-        System.out.print("Enter User ID to Login (e.g. L00X): ");
+        System.out.print("Enter User ID to Login (e.g. S001): ");
         String id = sc.nextLine();
         
         currentUser = manager.login(id);
         if (currentUser != null) {
             System.out.println("\n ========== Home Page ========== ");
-            System.out.println("Login Success! Hello, " + currentUser.getuserName());
+            System.out.println("Login Successfully! Hello, " + currentUser.getuserName());
             System.out.println("Your Borrow Limit is: " + currentUser.getBorrowLimit() + 
-                            " Your Duration is: " + currentUser.getBorrowDuration() + " days");
+                            " | Your Duration is: " + currentUser.getBorrowDuration() + " days");
         } else {
             System.out.println("User not found! Please check your ID or register.");
         }
