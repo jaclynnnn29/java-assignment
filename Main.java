@@ -227,16 +227,15 @@ public class Main {
             System.out.println("1. View All Items (Books/Journals)");
             System.out.println("2. Search Items by Title/Author/ISBN");
             System.out.println("3. Borrow Item");
-            System.out.println("4. Reserve Item");
-            System.out.println("5. Return Item");
+            System.out.println("4. Return Item");
 
             
             // Check if user is staff (Librarian or Faculty)
             boolean isStaff = (currentUser instanceof Librarian || currentUser instanceof Faculty);
             
             if (isStaff) {
-                System.out.println("6. Add New Item (Staff Only)");
-                System.out.println("7. Delete Item (Staff Only)");
+                System.out.println("5. Add New Item (Staff Only)");
+                System.out.println("6. Delete Item (Staff Only)");
             }
             
             System.out.println("0. Logout");
@@ -256,17 +255,13 @@ public class Main {
                     handleBorrowing();
                     break;
                 case 4:
-                    catalogManager.showAllItems();
-                    handleReservation();
-                    break;
-                case 5:
                     handleReturn();
                     break;
-                case 6:
+                case 5:
                     if (isStaff) addNewItem(); // Call registration logic
                     else System.out.println("Access Denied!");
                     break;
-                case 7:
+                case 6:
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
@@ -290,9 +285,9 @@ public class Main {
 
         System.out.println("\n--- Search Results ---");
         // Print the header to match your catalog style
-        System.out.println("=".repeat(100));
+        System.out.println("=".repeat(150));
         System.out.printf("%-12s %-15s %-35s %-30s\n", "Status", "ISBN", "Title", "Author");
-        System.out.println("=".repeat(100));
+        System.out.println("=".repeat(150));
 
         for (LibraryItem item : allItems) {
             // We check if the keyword is inside the Title, Author, OR ISBN
@@ -304,7 +299,7 @@ public class Main {
                 found = true;
             }
         }
-        System.out.println("=".repeat(100));
+        System.out.println("=".repeat(150));
 
         if (!found) {
             System.out.println("No matching items found for: " + keyword);
@@ -385,25 +380,9 @@ public class Main {
         }
     }
 
-    private static void handleReservation() {
-        System.out.print("Enter ISBN to reserve: ");
-        String isbn = sc.nextLine();
-        LibraryItem item = catalogManager.findByIsbn(isbn);
-        
-        if (item != null) {
-            transManager.reserveItem(currentUser, item);
-            if (item.getStatus().equals("Reserved")) {
-                System.out.println("You have successfully reserved: " + item.getTitle());
-            } else {
-                System.out.println("Sorry, this item cannot be reserved at the moment.");
-            }
-        } else {
-            System.out.println("Item not found.");
-        }
-    }
-
-
     private static void handleReturn() {
+        System.out.println("\n===== Return Item =====");
+
         System.out.print("Enter ISBN of the item you are returning: ");
         String isbn = sc.nextLine();
         transManager.returnItem(isbn, catalogManager);

@@ -27,21 +27,7 @@ public class TransactionManager {
         
         System.out.println("Successfully Borrowed! Due Date: " + newTrans.getDueDate());
     }
-    // Update status add "Reserved"
-    public void reserveItem(User user, LibraryItem item) {
-        // 1. Check if it's actually available to be reserved
-        if (!item.isAvailable()) {
-            System.out.println("Error: Item is already borrowed or reserved.");
-            return;
-        }
-
-        // 2. Change the status using your constant
-        item.setStatus(LibraryItem.STATUS_RESERVED);
-
-        // 3. Print the success message
-        System.out.println("Item reserved successfully. You will be notified when it's available for borrowing.");
-    }
-
+    
     // Returning Logic
     public void returnItem(String isbn, catalogManager catalog) {
         for (Transaction t : transactions) {
@@ -68,7 +54,7 @@ public class TransactionManager {
                 return;
             }
         }
-        System.out.println("No active transaction found for ISBN: " + isbn);
+        System.out.println("Good Job you made it on time no compensation needed!");
     }
 
     public void showActiveTransactions() {

@@ -10,7 +10,6 @@ public abstract class LibraryItem {
 
     public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_BORROWED = "Borrowed";
-    public static final String STATUS_RESERVED = "Reserved";
     
     public LibraryItem(String title, String itemISBN, String author) {
         this.title = title;
