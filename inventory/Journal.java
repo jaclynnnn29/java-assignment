@@ -11,8 +11,8 @@ package inventory;
 public class Journal extends LibraryItem {
     private int volumeNumber;
     
-    public Journal(String itemISBN, String title, String author, int volumeNumber){
-        super(title, itemISBN, author);
+    public Journal(String title,String itemISBN,  String author, int volumeNumber){
+        super(title,  itemISBN, author);
         this.volumeNumber = volumeNumber;
     }
 
@@ -24,7 +24,7 @@ public class Journal extends LibraryItem {
     }
     
     public String toString(){
-        return super.toString() + String.format(" Volume: %-15d\n", volumeNumber);
+        return super.toString() + String.format("Volume: %-15d\n", volumeNumber);
     }
     
 }

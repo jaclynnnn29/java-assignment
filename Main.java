@@ -44,8 +44,22 @@ public class Main {
         manager.addPublicMember("John", "john@example.com", "098-765-4321");
 
         catalogManager.addItem(new Book("The Great Gatsby", "9780743273565", "F. Scott Fitzgerald", "Fiction"));
+        catalogManager.addItem(new Book("To Kill a Mockingbird", "9780061120084", "Harper Lee", "Classic"));
+        catalogManager.addItem(new Book("1984", "9780451524935", "George Orwell", "Dystopian"));
+        catalogManager.addItem(new Book("The Hobbit", "9780547928227", "J.R.R. Tolkien", "Fantasy"));
+        catalogManager.addItem(new Book("Java Programming", "9780134685991", "Herbert Schildt", "Education"));
+
         catalogManager.addItem(new DigitalBook("Clean Code", "9780132350884", "Robert Martin", "PDF", 2.5));
-        catalogManager.addItem(new Journal("Journal of Computer Science", "2023", "CS Publisher", 42));
+        catalogManager.addItem(new DigitalBook("Effective Java", "9780134685991", "Joshua Bloch", "PDF", 3.8));
+        catalogManager.addItem(new DigitalBook("The Pragmatic Programmer", "9780135957059", "Andrew Hunt", "EPUB", 1.2));
+        catalogManager.addItem(new DigitalBook("Design Patterns", "9780201633610", "Erich Gamma", "PDF", 5.4));
+        catalogManager.addItem(new DigitalBook("Algorithms", "9780321573513", "Robert Sedgewick", "MOBI", 12.1));
+
+        catalogManager.addItem(new Journal("Journal of Computer Science", "J-101", "CS Publisher", 42));
+        catalogManager.addItem(new Journal("IEEE Software","J-202",  "IEEE Board", 38));
+        catalogManager.addItem(new Journal("Medical Research Quarterly","J-505",  "Health Press", 12));
+        catalogManager.addItem(new Journal("History of Art", "J-990", "Oxford Pub", 5));
+        catalogManager.addItem(new Journal("Modern Physics","J-112",  "Science Daily", 88));
 
         while (true) {
             if (currentUser == null) {
@@ -240,7 +254,7 @@ public class Main {
                 System.out.println("6. Delete Item (Staff Only)");
             }
             
-            System.out.println("0. Back to Main Menu");
+            System.out.println("0. Logout");
             System.out.print("Choice: ");
             choice = readInt();
 
@@ -268,12 +282,13 @@ public class Main {
                     else System.out.println("Access Denied!");
                     break;
                 case 0:
-                    System.out.println("Returning to main menu...");
+                    currentUser = null;
+                    System.out.println("Logged out...");
                     break;
                 default:
                     System.out.println("Error! Invalid selection.");
             }
-        } while (choice != 0);
+        } while (choice != 0);        
     }
 
     public static void searchISBN() {

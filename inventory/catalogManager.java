@@ -12,7 +12,6 @@ public class catalogManager {
     // Create - Polymorphism in action
     public void addItem(LibraryItem item) {
         itemList.add(item);
-        System.out.println("Item added successfully: " + item.getTitle());
     }
 
     // Read (Show all)
@@ -24,7 +23,7 @@ public class catalogManager {
         System.out.println("\n--- Library Catalog ---");
         // Matches the format in your LibraryItem toString()
         System.out.printf("%-12s %-15s %-35s %-30s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
-        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("-".repeat(130));
         for (LibraryItem item : itemList) {
             System.out.print(item.toString()); 
         }

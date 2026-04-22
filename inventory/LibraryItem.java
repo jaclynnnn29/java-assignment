@@ -63,6 +63,6 @@ public abstract class LibraryItem {
     
     @Override
     public String toString(){
-        return String.format("%-12s %-15s %-35s %-30s \n", status, itemISBN, title, author);
+        return String.format("%-12s %-15s %-35s %-30s ", status, itemISBN, title, author);
     }
 }
