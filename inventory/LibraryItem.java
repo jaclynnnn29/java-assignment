@@ -13,8 +13,9 @@ public abstract class LibraryItem {
     private String itemISBN; 
     private String status; // available, borrowed, reserved
     private String author; 
+    private boolean available = true;
 
-    public static final String STATUS_AVAILABLE = "Available";
+    //public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_BORROWED = "Borrowed";
     public static final String STATUS_RESERVED = "Reserved";
     
@@ -22,7 +23,6 @@ public abstract class LibraryItem {
         this.title = title;
         this.itemISBN = itemISBN;
         this.author = author;
-        this.status = STATUS_AVAILABLE;
     }
     
     public String getTitle(){
@@ -51,6 +51,14 @@ public abstract class LibraryItem {
     
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean isAvailable() { // Added this getter
+        return available;
+    }
+
+    public void setAvailable(boolean available) { // Added this setter
+        this.available = available;
     }
     
     @Override
