@@ -18,6 +18,13 @@ public class TransactionManager {
             System.out.println("Error: Item is currently 'On Loan'.");
             return;
         }
+
+        // 2. NEW: Check if user has reached their specific BORROW_LIMIT
+        int activeLoans = countActiveLoans(user);
+        if (activeLoans >= user.getBorrowLimit()) {
+            System.out.println("Error: Borrowing limit reached go return some books before you come again! (" + user.getBorrowLimit() + " books max)");
+            return;
+        }
         
         String tid = "T" + (transactionCounter++);
         Transaction newTrans = new Transaction(tid, user, item.getItemISBN(), user.getBorrowDuration());
@@ -26,8 +33,20 @@ public class TransactionManager {
         item.setStatus(LibraryItem.STATUS_BORROWED); // Update status to "On Loan"
         
         System.out.println("Successfully Borrowed! Due Date: " + newTrans.getDueDate());
+        System.out.println("Current active loans: " + (activeLoans + 1) + "/" + user.getBorrowLimit());
     }
     
+    private int countActiveLoans(User user) {
+        int count = 0;
+        for (Transaction t : transactions) {
+            // Match by User ID and ensure it hasn't been returned yet
+            if (t.getMember().getuserId().equalsIgnoreCase(user.getuserId()) && !t.isReturned()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     // Returning Logic
     public void returnItem(String isbn, catalogManager catalog) {
         for (Transaction t : transactions) {

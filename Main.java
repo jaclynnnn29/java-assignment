@@ -366,15 +366,8 @@ public class Main {
         LibraryItem item = catalogManager.findByIsbn(isbn);
     
         if (item != null) {
-            // CHECK FIRST: Is it available?
-            if (item.isAvailable()) {
-                // Only borrow if it is currently available
-                transManager.borrowItem(currentUser, item);
-                System.out.println("You have successfully borrowed: " + item.getTitle());
-            } else {
-                    // If it's already Borrowed or Reserved
-                    System.out.println("Sorry, this item is currently unavailable (Current Item Status: " + item.getStatus() + ").");
-            }
+            // The TransactionManager now checks the currentUser's identity and limit
+            transManager.borrowItem(currentUser, item);
         } else {
             System.out.println("Item not found.");
         }
