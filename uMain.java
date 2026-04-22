@@ -72,13 +72,13 @@ public class uMain {
         }
     }
 
-    private static void Login() {
-        System.out.println("Login Page");
-        System.out.print("\nEnter User ID to Login (e.g., L00X): ");
+    private static void Login() {        
+        System.out.print("Enter User ID to Login (e.g. L00X): ");
         String id = sc.nextLine();
         
         currentUser = manager.login(id);
         if (currentUser != null) {
+            System.out.println("\n ========== Home Page ========== ");
             System.out.println("Login Success! Hello, " + currentUser.getuserName());
             System.out.println("Your Borrow Limit is: " + currentUser.getBorrowLimit() + 
                             " Your Duration is: " + currentUser.getBorrowDuration() + " days");
