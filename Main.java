@@ -1,3 +1,4 @@
+import java.io.ObjectInputFilter.Status;
 import java.util.Scanner;
 import transactions.TransactionManager;
 import inventory.Book;
@@ -263,11 +264,12 @@ public class Main {
                     catalogManager.showAllItems(); 
                     break;
                 case 2:
+                    catalogManager.showAllItems();
                     searchISBN(); 
                     break;
                 case 3:
+                    catalogManager.showAllItems();
                     handleBorrowing();
-                    System.out.println("Borrowing functionality not implemented yet.");
                     break;
                 case 4:
                     handleReturn();
@@ -366,10 +368,33 @@ public class Main {
     
         if (item != null) {
             transManager.borrowItem(currentUser, item);
+            if (item.getStatus().equals("Borrowed")|| item.getStatus().equals("Reserved")) {
+                System.out.println("You have successfully borrowed: " + item.getTitle());
+            } else {
+                System.out.println("Sorry, this item is currently unavailable.");
+            }
         } else {
             System.out.println("Item not found.");
         }
     }
+
+    private static void handleReservation() {
+        System.out.print("Enter ISBN to reserve: ");
+        String isbn = sc.nextLine();
+        LibraryItem item = catalogManager.findByIsbn(isbn);
+        
+        if (item != null) {
+            transManager.reserveItem(currentUser, item);
+            if (item.getStatus().equals("Reserved")) {
+                System.out.println("You have successfully reserved: " + item.getTitle());
+            } else {
+                System.out.println("Sorry, this item cannot be reserved at the moment.");
+            }
+        } else {
+            System.out.println("Item not found.");
+        }
+    }
+
 
     private static void handleReturn() {
         System.out.print("Enter ISBN of the item you are returning: ");

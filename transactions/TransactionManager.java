@@ -28,6 +28,12 @@ public class TransactionManager {
         System.out.println("Successfully Borrowed! Due Date: " + newTrans.getDueDate());
     }
 
+    public void reserveItem(User user, LibraryItem item) {
+        if (item){ System.out.println("Item reserved successfully. You will be notified when it's available for borrowing.");
+    }}
+     // Update status to "Reserved"
+       
+
     // Returning Logic
     public void returnItem(String isbn, catalogManager catalog) {
         for (Transaction t : transactions) {
