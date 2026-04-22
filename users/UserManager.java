@@ -112,7 +112,7 @@ public class UserManager {
             if (u.getuserId().equalsIgnoreCase(userId)) {
                 u.setuserName(newName);
                 u.setuserEmail(newEmail);
-                System.out.println("User Success for" + userId + "!");
+                System.out.println("Updated successfully for" + userId + "!");
                 return;
             }
         }

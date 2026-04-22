@@ -6,6 +6,8 @@ import inventory.Book;
 import inventory.DigitalBook;
 import inventory.Journal;
 import inventory.LibraryItem;
+import studyroombooking.StudyRoom;
+import studyroombooking.StudyRoomManager;
 import inventory.CatalogManager;
 import users.Faculty;
 import users.Librarian;
@@ -27,6 +29,7 @@ public class Main {
     private static final UserManager manager = new UserManager(); 
     private static CatalogManager catalogManager = new CatalogManager();
     private static final TransactionManager transManager = new TransactionManager();
+    private static final StudyRoomManager roomManager = new StudyRoomManager();
     private static final Scanner sc = new Scanner(System.in); 
     private static User currentUser = null; 
 
@@ -228,14 +231,16 @@ public class Main {
             System.out.println("2. Search Items by Title/Author/ISBN");
             System.out.println("3. Borrow Item");
             System.out.println("4. Return Item");
-
+            System.out.println("5. Reserve Study Room");
             
+
             // Check if user is staff (Librarian or Faculty)
             boolean isStaff = (currentUser instanceof Librarian || currentUser instanceof Faculty);
             
             if (isStaff) {
-                System.out.println("5. Add New Item (Staff Only)");
-                System.out.println("6. Delete Item (Staff Only)");
+                System.out.println("6. Release Study Room");
+                System.out.println("7. Add New Item (Staff Only)");
+                System.out.println("8. Delete Item (Staff Only)");
             }
             
             System.out.println("0. Logout");
@@ -258,10 +263,13 @@ public class Main {
                     handleReturn();
                     break;
                 case 5:
+                    handleRoomReservation();
+                    break;
+                case 6:
                     if (isStaff) addNewItem(); // Call registration logic
                     else System.out.println("Access Denied!");
                     break;
-                case 6:
+                case 7:
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
@@ -386,4 +394,31 @@ public class Main {
         transManager.returnItem(isbn, catalogManager);
     }
 
+    private static void handleRoomReservation() {
+    System.out.println("\n===== STUDY ROOM RESERVATION =====");
+    roomManager.showRoomStatus();
+
+    System.out.println("\n1. Reserve a Room");
+    System.out.println("2. Release/Vacate a Room");
+    System.out.println("0. Back");
+    System.out.print("Choice: ");
+    int choice = readInt();
+
+    if (choice == 0) return;
+
+    System.out.print("Enter Room ID: ");
+    String roomId = sc.nextLine();
+    StudyRoom room = roomManager.findRoom(roomId);
+
+    if (room == null) {
+        System.out.println("Room not found.");
+        return;
+    }
+
+    if (choice == 1) {
+        room.reserveRoom(currentUser);
+    } else if (choice == 2) {
+        room.releaseRoom();
+    }
+}
 }
