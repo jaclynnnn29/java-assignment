@@ -1,21 +1,14 @@
 package inventory;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author jaclynnnnn
- */
+
 public abstract class LibraryItem {
     private String title;
     private String itemISBN; 
-    private String status = "Available"; // available, borrowed, reserved
+    private String status = STATUS_AVAILABLE; // default constant for available
     private String author; 
     private boolean available = true;
 
-    //public static final String STATUS_AVAILABLE = "Available";
+    public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_BORROWED = "Borrowed";
     public static final String STATUS_RESERVED = "Reserved";
     
@@ -50,7 +43,14 @@ public abstract class LibraryItem {
     }
     
     public void setStatus(String status) {
-        this.status = status;
+    this.status = status;
+        // This logic ensures 'available' matches the 'status' automatically
+        if (status.equals(STATUS_AVAILABLE)) {
+            this.available = true;
+        } else {
+            // If it's Borrowed or Reserved, it's not available
+            this.available = false;
+        }
     }
 
     public boolean isAvailable() { // Added this getter

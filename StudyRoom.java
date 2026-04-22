@@ -68,5 +68,4 @@ public class StudyRoom {
     public boolean isAvailable() { 
         return isAvailable; 
     }
-    
 }

@@ -1,4 +1,5 @@
 import java.io.ObjectInputFilter.Status;
+import java.util.List;
 import java.util.Scanner;
 import transactions.TransactionManager;
 import inventory.Book;
@@ -64,7 +65,7 @@ public class Main {
 
         while (true) {
             if (currentUser == null) {
-                System.out.println("\n === Welcome to Library Management System ===");
+                System.out.println("\n=== Welcome to Library Management System ===");
                 System.out.println("1. Login Existing Account");
                 System.out.println("2. Register New Account");
                 System.out.println("0. Exit System");
@@ -99,12 +100,13 @@ public class Main {
 
     private static void Login() {        
         System.out.print("Enter User ID to Login (e.g. S001): ");
-        String id = sc.nextLine();
+        String id = sc.nextLine();        
         
         currentUser = manager.login(id);
         if (currentUser != null) {
-            System.out.println("\n ========== Home Page ========== ");
-            System.out.println("Login Successfully! Hello, " + currentUser.getuserName());
+            System.out.println("Login Successfully!");
+            System.out.println("\n========== Home Page ========== ");
+            System.out.println("Welcome back, " + currentUser.getuserName());
             System.out.println("Your Borrow Limit is: " + currentUser.getBorrowLimit() + 
                             " | Your Duration is: " + currentUser.getBorrowDuration() + " days");
         } else {
@@ -242,17 +244,18 @@ public class Main {
         do {
             System.out.println("\n===== CATALOG & BOOK SYSTEM =====");
             System.out.println("1. View All Items (Books/Journals)");
-            System.out.println("2. Search by ISBN");
+            System.out.println("2. Search Items by Title/Author/ISBN");
             System.out.println("3. Borrow Item");
-            System.out.println("4. Return Item");
+            System.out.println("4. Reserve Item");
+            System.out.println("5. Return Item");
 
             
             // Check if user is staff (Librarian or Faculty)
             boolean isStaff = (currentUser instanceof Librarian || currentUser instanceof Faculty);
             
             if (isStaff) {
-                System.out.println("5. Add New Item (Staff Only)");
-                System.out.println("6. Delete Item (Staff Only)");
+                System.out.println("6. Add New Item (Staff Only)");
+                System.out.println("7. Delete Item (Staff Only)");
             }
             
             System.out.println("0. Logout");
@@ -265,21 +268,24 @@ public class Main {
                     break;
                 case 2:
                     catalogManager.showAllItems();
-                    searchISBN(); 
+                    searchItems(); 
                     break;
                 case 3:
                     catalogManager.showAllItems();
                     handleBorrowing();
                     break;
                 case 4:
-                    handleReturn();
-                    System.out.println("Returning functionality not implemented yet.");
+                    catalogManager.showAllItems();
+                    handleReservation();
                     break;
                 case 5:
+                    handleReturn();
+                    break;
+                case 6:
                     if (isStaff) addNewItem(); // Call registration logic
                     else System.out.println("Access Denied!");
                     break;
-                case 6:
+                case 7:
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
@@ -293,17 +299,34 @@ public class Main {
         } while (choice != 0);        
     }
 
-    public static void searchISBN() {
-        System.out.print("Enter ISBN to search: ");
-        String isbn = sc.nextLine();
-        LibraryItem item = catalogManager.findByIsbn(isbn);
-        if (item != null) {
-            System.out.println("\nItem Found:");
-            System.out.printf("%-12s %-15s %-25s %-20s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
-            System.out.println("-----------------------------------------------------------------------------------------");
-            System.out.print(item.toString());
-        } else {
-            System.out.println("No item found with ISBN: " + isbn);
+    public static void searchItems() {
+        System.out.print("Enter search keyword (Title, Author, or ISBN): ");
+        String keyword = sc.nextLine().toLowerCase(); 
+
+        // This calls the new method you just added!
+        List<LibraryItem> allItems = catalogManager.getItemList(); 
+        boolean found = false;
+
+        System.out.println("\n--- Search Results ---");
+        // Print the header to match your catalog style
+        System.out.println("=".repeat(100));
+        System.out.printf("%-12s %-15s %-35s %-30s\n", "Status", "ISBN", "Title", "Author");
+        System.out.println("=".repeat(100));
+
+        for (LibraryItem item : allItems) {
+            // We check if the keyword is inside the Title, Author, OR ISBN
+            if (item.getTitle().toLowerCase().contains(keyword) || 
+                item.getAuthor().toLowerCase().contains(keyword) || 
+                item.getItemISBN().toLowerCase().contains(keyword)) {
+                
+                System.out.println(item.toString());
+                found = true;
+            }
+        }
+        System.out.println("=".repeat(100));
+
+        if (!found) {
+            System.out.println("No matching items found for: " + keyword);
         }
     }
 
@@ -361,17 +384,20 @@ public class Main {
         }
     }
     
-    private static void handleBorrowing() {
-    System.out.print("Enter ISBN to borrow: ");
-    String isbn = sc.nextLine();
-    LibraryItem item = catalogManager.findByIsbn(isbn);
+    private static void  handleBorrowing() {
+        System.out.print("Enter ISBN to borrow: ");
+        String isbn = sc.nextLine();
+        LibraryItem item = catalogManager.findByIsbn(isbn);
     
         if (item != null) {
-            transManager.borrowItem(currentUser, item);
-            if (item.getStatus().equals("Borrowed")|| item.getStatus().equals("Reserved")) {
+            // CHECK FIRST: Is it available?
+            if (item.isAvailable()) {
+                // Only borrow if it is currently available
+                transManager.borrowItem(currentUser, item);
                 System.out.println("You have successfully borrowed: " + item.getTitle());
             } else {
-                System.out.println("Sorry, this item is currently unavailable.");
+                    // If it's already Borrowed or Reserved
+                    System.out.println("Sorry, this item is currently unavailable (Current Item Status: " + item.getStatus() + ").");
             }
         } else {
             System.out.println("Item not found.");

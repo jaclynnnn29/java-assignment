@@ -23,16 +23,24 @@ public class TransactionManager {
         Transaction newTrans = new Transaction(tid, user, item.getItemISBN(), user.getBorrowDuration());
         
         transactions.add(newTrans);
-        item.setAvailable(false); // Update status to "On Loan"
+        item.setStatus(LibraryItem.STATUS_BORROWED); // Update status to "On Loan"
         
         System.out.println("Successfully Borrowed! Due Date: " + newTrans.getDueDate());
     }
-
+    // Update status add "Reserved"
     public void reserveItem(User user, LibraryItem item) {
-        if (item){ System.out.println("Item reserved successfully. You will be notified when it's available for borrowing.");
-    }}
-     // Update status to "Reserved"
-       
+        // 1. Check if it's actually available to be reserved
+        if (!item.isAvailable()) {
+            System.out.println("Error: Item is already borrowed or reserved.");
+            return;
+        }
+
+        // 2. Change the status using your constant
+        item.setStatus(LibraryItem.STATUS_RESERVED);
+
+        // 3. Print the success message
+        System.out.println("Item reserved successfully. You will be notified when it's available for borrowing.");
+    }
 
     // Returning Logic
     public void returnItem(String isbn, catalogManager catalog) {

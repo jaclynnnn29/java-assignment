@@ -21,12 +21,14 @@ public class catalogManager {
             return;
         }
         System.out.println("\n--- Library Catalog ---");
+        System.out.println("=".repeat(150));
         // Matches the format in your LibraryItem toString()
         System.out.printf("%-12s %-15s %-35s %-30s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
-        System.out.println("-".repeat(130));
+        System.out.println("=".repeat(150));
         for (LibraryItem item : itemList) {
             System.out.print(item.toString()); 
         }
+        System.out.println("=".repeat(150));
     }
 
     // Update - Using the setters from LibraryItem
@@ -55,5 +57,10 @@ public class catalogManager {
             }
         }
         return null;
+    }
+    
+    // Add this inside catalogManager.java
+    public List<LibraryItem> getItemList() {
+        return itemList;
     }
 }
