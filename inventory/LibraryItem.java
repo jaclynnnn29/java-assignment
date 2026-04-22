@@ -57,8 +57,9 @@ public abstract class LibraryItem {
         return available;
     }
 
-    public void setAvailable(boolean available) { // Added this setter
+    public void setAvailable(boolean available) {
         this.available = available;
+        this.status = available ? STATUS_AVAILABLE : STATUS_BORROWED;
     }
     
     @Override

@@ -23,8 +23,8 @@ public class Journal extends LibraryItem {
         this.volumeNumber = volumeNumber;
     }
     
+    @Override
     public String toString(){
         return super.toString() + String.format("Volume: %-15d\n", volumeNumber);
-    }
-    
+    }    
 }

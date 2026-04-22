@@ -50,7 +50,10 @@ public class TransactionManager {
                 
                 // Update Catalog Status
                 LibraryItem item = catalog.findByIsbn(isbn);
-                if (item != null) item.setAvailable(true);
+                if (item != null) {
+                    item.setAvailable(true);
+                    item.setStatus(LibraryItem.STATUS_AVAILABLE);
+                }
 
                 // Calculate Fines
                 long diff = t.getReturnDate().getTime() - t.getDueDate().getTime();

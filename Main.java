@@ -188,25 +188,6 @@ public class Main {
                 break;
 
             case 2:
-                System.out.print("Enter Department: ");
-                String dept = sc.nextLine();
-                String newfacultyId = manager.addFaculty(name, email, dept);
-                System.out.println("\n-------------------------------------------");
-                System.out.println("Registration Success for: " + name);
-                System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newfacultyId );
-                System.out.println("-------------------------------------------");
-                break;
-
-            case 3:
-                System.out.print("Enter Staff Level (1-5): ");
-                int level = readInt();
-                String newlibId = manager.addLibrarian(name, email, level);
-                System.out.println("\n-------------------------------------------");
-                System.out.println("Registration Success for: " + name);
-                System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newlibId );
-                System.out.println("-------------------------------------------");
-                break;
-            case 4:
                 System.out.print("Enter Phone Number: ");
                 String phoneNumber = sc.nextLine();
                 String newpmId = manager.addPublicMember(name, email, phoneNumber);
@@ -363,8 +344,8 @@ public class Main {
                 String fileFormat = sc.nextLine();
                 System.out.print("Enter File Size (MB): ");
                 double fileSize = sc.nextDouble();
-                sc.nextLine(); // Consume newline
-                LibraryItem newDigitalBook = new DigitalBook(isbn, title, author, fileFormat, fileSize);
+                sc.nextLine(); // CRITICAL: Consume the leftover newline
+                LibraryItem newDigitalBook = new DigitalBook(title, isbn, author, fileFormat, fileSize);
                 catalogManager.addItem(newDigitalBook);
                 break;
             default:
