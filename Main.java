@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
+import inventory.Book;
+import inventory.DigitalBook;
+import inventory.Journal;
 import inventory.LibraryItem;
+import inventory.catalogManager;
 import users.Faculty;
 import users.Librarian;
 import users.PublicMember;
@@ -17,8 +21,9 @@ import users.UserManager;
  *
  * @author ASUS
  */
-public class uMain {
+public class Main {
     private static final UserManager manager = new UserManager(); 
+    private static catalogManager catalogManager = new catalogManager();
     private static final Scanner sc = new Scanner(System.in); 
     private static User currentUser = null; 
 
@@ -253,6 +258,74 @@ public class uMain {
                     System.out.println("Error! Invalid selection.");
             }
         } while (choice != 0);
+    }
+
+    public static void searchISBN() {
+        System.out.print("Enter ISBN to search: ");
+        String isbn = sc.nextLine();
+        LibraryItem item = catalogManager.findByIsbn(isbn);
+        if (item != null) {
+            System.out.println("\nItem Found:");
+            System.out.printf("%-12s %-15s %-25s %-20s %-15s\n", "Status", "ISBN", "Title", "Author", "Special Info");
+            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.print(item.toString());
+        } else {
+            System.out.println("No item found with ISBN: " + isbn);
+        }
+    }
+
+    public static void addNewItem() {
+        System.out.println("\n--- Add New Item ---");
+        System.out.println("1. Add Book");
+        System.out.println("2. Add Journal");
+        System.out.println("3. Add Digital Book");
+        System.out.print("Select type: ");
+        int type = readInt();
+
+        System.out.print("Enter ISBN: ");
+        String isbn = sc.nextLine();
+        System.out.print("Enter Title: ");
+        String title = sc.nextLine();
+        System.out.print("Enter Author: ");
+        String author = sc.nextLine();
+        
+        switch (type) {
+            case 1:
+                System.out.print("Enter Genre: ");
+                String genre = sc.nextLine();
+                LibraryItem newBook = new Book(isbn, title, author, genre);
+                catalogManager.addItem(newBook);
+                break;
+            case 2:
+                System.out.print("Enter Volume Number: ");
+                int volumeNumber = readInt();
+                LibraryItem newJournal = new Journal(isbn, title, author, volumeNumber);
+                catalogManager.addItem(newJournal);
+                break;
+            case 3:
+                System.out.print("Enter File Format: ");
+                String fileFormat = sc.nextLine();
+                System.out.print("Enter File Size (MB): ");
+                double fileSize = sc.nextDouble();
+                sc.nextLine(); // Consume newline
+                LibraryItem newDigitalBook = new DigitalBook(isbn, title, author, fileFormat, fileSize);
+                catalogManager.addItem(newDigitalBook);
+                break;
+            default:
+                System.out.println("Invalid type! Item not added.");
+        }
+
+    }
+
+    public static void deleteItem() {
+        System.out.print("Enter ISBN of item to delete: ");
+        String isbn = sc.nextLine();
+        boolean success = catalogManager.deleteItem(isbn);
+        if (success) {
+            System.out.println("Item with ISBN " + isbn + " deleted successfully.");
+        } else {
+            System.out.println("No item found with ISBN: " + isbn);
+        }
     }
     
 

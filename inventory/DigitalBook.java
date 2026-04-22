@@ -12,7 +12,7 @@ public class DigitalBook extends LibraryItem {
     private String fileFormat; 
     private double fileSizeMB;
 
-    public DigitalBook(String title, String itemISBN, String author, String genre, String fileFormat, double fileSizeMB) {
+    public DigitalBook(String title, String itemISBN, String author, String fileFormat, double fileSizeMB) {
         super(title, itemISBN, author);
         this.fileFormat = fileFormat;
         this.fileSizeMB = fileSizeMB;
