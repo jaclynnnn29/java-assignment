@@ -136,10 +136,10 @@ public class Main {
                     manager.showAll();
                     break;
                 case 2:
-                    update();
+                    updateUsers();
                     break;
                 case 3:
-                    delete();
+                    deleteUsers();
                     break;
                 case 4:
                     bookManagement();
@@ -209,7 +209,7 @@ public class Main {
     }
 
     // Update 
-    private static void update() {
+    private static void updateUsers() {
         System.out.print("Enter User ID to update: ");
         String id = sc.nextLine();
         System.out.print("Enter New Name: ");
@@ -220,7 +220,7 @@ public class Main {
     }
 
     // Deletion
-    private static void delete() {
+    private static void deleteUsers() {
         System.out.print("Enter User ID to delete: ");
         String id = sc.nextLine();
         manager.deleteUser(id);
