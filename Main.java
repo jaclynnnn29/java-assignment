@@ -499,13 +499,13 @@ public class Main {
             case 1:
                 System.out.print("Enter Genre: ");
                 String genre = sc.nextLine();
-                LibraryItem newBook = new Book(isbn, title, author, genre);
+                LibraryItem newBook = new Book(title, isbn, author, genre);
                 catalogManager.addItem(newBook);
                 break;
             case 2:
                 System.out.print("Enter Volume Number: ");
                 int volumeNumber = readInt();
-                LibraryItem newJournal = new Journal(isbn, title, author, volumeNumber);
+                LibraryItem newJournal = new Journal( title, isbn,author, volumeNumber);
                 catalogManager.addItem(newJournal);
                 break;
             case 3:
@@ -520,7 +520,7 @@ public class Main {
             default:
                 System.out.println("Invalid type! Item not added.");
         }
-
+        System.out.println("\nSuccess: [" + title + "] has been added to the library catalog!");
     }
 
     public static void deleteItem() {
