@@ -336,6 +336,9 @@ public class Main {
                     }
                     break;
                 case 7:
+                    addNewItem();
+                    break;
+                case 8:
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
