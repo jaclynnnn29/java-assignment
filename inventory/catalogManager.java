@@ -63,4 +63,22 @@ public class CatalogManager {
     public List<LibraryItem> getItemList() {
         return itemList;
     }
+
+    public void saveData() {
+        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream("catalog.dat"))) {
+            oos.writeObject(itemList);
+        } catch (java.io.IOException e) { }
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean loadData() {
+        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream("catalog.dat"))) {
+            List<LibraryItem> loadedList = (List<LibraryItem>) ois.readObject();
+            itemList.clear();
+            itemList.addAll(loadedList);
+            return true;
+        } catch (Exception e) {
+            return false; 
+        }
+    }
 }

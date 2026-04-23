@@ -26,4 +26,22 @@ public class StudyRoomManager {
         }
         return null;
     }
+
+    public void saveData() {
+        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream("rooms.dat"))) {
+            oos.writeObject(rooms);
+        } catch (java.io.IOException e) { }
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean loadData() {
+        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream("rooms.dat"))) {
+            List<StudyRoom> loadedList = (List<StudyRoom>) ois.readObject();
+            rooms.clear();
+            rooms.addAll(loadedList);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

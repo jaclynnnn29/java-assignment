@@ -131,4 +131,32 @@ public class UserManager {
         }
     }
     
+    public void saveData() {
+        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream("users.dat"))) {
+            oos.writeObject(userList);
+            oos.writeInt(studentCount);
+            oos.writeInt(facultyCount);
+            oos.writeInt(librarianCount);
+            oos.writeInt(publicCount);
+        } catch (java.io.IOException e) {
+            System.out.println("Error saving users: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean loadData() {
+        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream("users.dat"))) {
+            List<User> loadedList = (List<User>) ois.readObject();
+            userList.clear();
+            userList.addAll(loadedList);
+            studentCount = ois.readInt();
+            facultyCount = ois.readInt();
+            librarianCount = ois.readInt();
+            publicCount = ois.readInt();
+            return true; // Successfully loaded
+        } catch (Exception e) {
+            return false; // File doesn't exist yet, which is normal for the first run
+        }
+    }
+
 }

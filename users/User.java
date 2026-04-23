@@ -8,7 +8,7 @@ package users;
  *
  * @author ASUS
  */
-public abstract class User {
+public abstract class User implements java.io.Serializable {
     private final String userId;
     private String userName;
     private String userEmail;

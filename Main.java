@@ -33,37 +33,43 @@ public class Main {
     private static User currentUser = null; 
 
     public static void main(String[] args) {
+
+        boolean hasUsers = manager.loadData();
+        boolean hasCatalog = catalogManager.loadData();
+        boolean hasRooms = roomManager.loadData();
+        transManager.loadData();
         
-        manager.addLibrarian("JC", "admin@lib.com", 5);
-        manager.addLibrarian("LY", "ly@lib.com", 4);
-        manager.addLibrarian("EX", "ex@lib.com", 3);
+        if (!hasUsers){
+            manager.addLibrarian("JC", "admin@lib.com", 5);
+            manager.addLibrarian("LY", "ly@lib.com", 4);
+            manager.addLibrarian("EX", "ex@lib.com", 3);
+            manager.addFaculty("ABC", "abc@faculty.com", "Computer Science");
+            manager.addFaculty("GG", "gg@faculty.com", "Mathe");
+            manager.addStudent("Alice", "alice@student.com", "S001");
+            manager.addStudent("Bob", "bob@student.com", "S002");
+            manager.addPublicMember("Ana", "ana@example.com", "023-456-7890");
+            manager.addPublicMember("John", "john@example.com", "098-765-4321");
+        }
+        
+        if (!hasCatalog) {
+            catalogManager.addItem(new Book("The Great Gatsby", "9780743273565", "F. Scott Fitzgerald", "Fiction"));
+            catalogManager.addItem(new Book("To Kill a Mockingbird", "9780061120084", "Harper Lee", "Classic"));
+            catalogManager.addItem(new Book("1984", "9780451524935", "George Orwell", "Dystopian"));
+            catalogManager.addItem(new Book("The Hobbit", "9780547928227", "J.R.R. Tolkien", "Fantasy"));
+            catalogManager.addItem(new Book("Java Programming", "9780134685991", "Herbert Schildt", "Education"));
 
-        manager.addFaculty("ABC", "abc@faculty.com", "Computer Science");
-        manager.addFaculty("GG", "gg@faculty.com", "Mathe");
+            catalogManager.addItem(new DigitalBook("Clean Code", "9780132350884", "Robert Martin", "PDF", 2.5));
+            catalogManager.addItem(new DigitalBook("Effective Java", "9780134685991", "Joshua Bloch", "PDF", 3.8));
+            catalogManager.addItem(new DigitalBook("The Pragmatic Programmer", "9780135957059", "Andrew Hunt", "EPUB", 1.2));
+            catalogManager.addItem(new DigitalBook("Design Patterns", "9780201633610", "Erich Gamma", "PDF", 5.4));
+            catalogManager.addItem(new DigitalBook("Algorithms", "9780321573513", "Robert Sedgewick", "MOBI", 12.1));
 
-        manager.addStudent("Alice", "alice@student.com", "S001");
-        manager.addStudent("Bob", "bob@student.com", "S002");
-
-        manager.addPublicMember("Ana", "ana@example.com", "023-456-7890");
-        manager.addPublicMember("John", "john@example.com", "098-765-4321");
-
-        catalogManager.addItem(new Book("The Great Gatsby", "9780743273565", "F. Scott Fitzgerald", "Fiction"));
-        catalogManager.addItem(new Book("To Kill a Mockingbird", "9780061120084", "Harper Lee", "Classic"));
-        catalogManager.addItem(new Book("1984", "9780451524935", "George Orwell", "Dystopian"));
-        catalogManager.addItem(new Book("The Hobbit", "9780547928227", "J.R.R. Tolkien", "Fantasy"));
-        catalogManager.addItem(new Book("Java Programming", "9780134685991", "Herbert Schildt", "Education"));
-
-        catalogManager.addItem(new DigitalBook("Clean Code", "9780132350884", "Robert Martin", "PDF", 2.5));
-        catalogManager.addItem(new DigitalBook("Effective Java", "9780134685991", "Joshua Bloch", "PDF", 3.8));
-        catalogManager.addItem(new DigitalBook("The Pragmatic Programmer", "9780135957059", "Andrew Hunt", "EPUB", 1.2));
-        catalogManager.addItem(new DigitalBook("Design Patterns", "9780201633610", "Erich Gamma", "PDF", 5.4));
-        catalogManager.addItem(new DigitalBook("Algorithms", "9780321573513", "Robert Sedgewick", "MOBI", 12.1));
-
-        catalogManager.addItem(new Journal("Journal of Computer Science", "J-101", "CS Publisher", 42));
-        catalogManager.addItem(new Journal("IEEE Software","J-202",  "IEEE Board", 38));
-        catalogManager.addItem(new Journal("Medical Research Quarterly","J-505",  "Health Press", 12));
-        catalogManager.addItem(new Journal("History of Art", "J-990", "Oxford Pub", 5));
-        catalogManager.addItem(new Journal("Modern Physics","J-112",  "Science Daily", 88));
+            catalogManager.addItem(new Journal("Journal of Computer Science", "J-101", "CS Publisher", 42));
+            catalogManager.addItem(new Journal("IEEE Software","J-202",  "IEEE Board", 38));
+            catalogManager.addItem(new Journal("Medical Research Quarterly","J-505",  "Health Press", 12));
+            catalogManager.addItem(new Journal("History of Art", "J-990", "Oxford Pub", 5));
+            catalogManager.addItem(new Journal("Modern Physics","J-112",  "Science Daily", 88));
+        }
 
         while (true) {
             if (currentUser == null) {
@@ -76,6 +82,13 @@ public class Main {
                 int n = readInt();
                 
                 if (n == 0) {
+                    //SAVE ALL DATA RIGHT BEFORE CLOSING
+                    System.out.println("Data Changes Saved...");
+                    manager.saveData();
+                    catalogManager.saveData();
+                    transManager.saveData();
+                    roomManager.saveData();
+
                     System.out.println("Goodbye!");
                     break; 
                 }
@@ -422,14 +435,16 @@ public class Main {
             String isbn = sc.nextLine();
 
             if (isbn.equals("0")) {
-                System.out.println("Borrowing cancelled.");
+                System.out.println("Returning page.");
                 break; // Exit the loop
             }
 
             LibraryItem item = catalogManager.findByIsbn(isbn);
             if (item != null) {
-                transManager.borrowItem(currentUser, item);
-                break; // Exit loop after successful attempt
+                boolean success = transManager.borrowItem(currentUser, item);
+                if (success) {
+                    break; // Only exit the loop if borrowing was actually successful
+                }
             } else {
                 System.out.println("Error: Item with ISBN [" + isbn + "] not found. Please try again.");
             }
@@ -441,12 +456,23 @@ public class Main {
 
         transManager.showUserActiveLoans(currentUser);
 
-        System.out.print("Enter ISBN of the item you want to return (or '0' to return page): ");
-        String isbn = sc.nextLine();
+        while (true) {
+            System.out.print("Enter ISBN of the item you want to return (or '0' to return page): ");
+            String isbn = sc.nextLine();
 
-        if (isbn.equals("0")) return;
+            if (isbn.equals("0")) {
+                System.out.println("Returning to previous menu.");
+                break; // Exit the loop if they type 0
+            }
 
-        transManager.returnItem(isbn, catalogManager);
+            // We check if the return was successful
+            boolean success = transManager.returnItem(currentUser, isbn, catalogManager);
+            
+            if (success) {
+                break; // EXIT loop ONLY if return was successful
+            }
+            // If success is false (invalid ISBN), the loop will automatically repeat!
+        }
     }
 
     private static void handleRoomReservation() {
@@ -455,25 +481,39 @@ public class Main {
 
         System.out.println("1. Reserve a Room");
         System.out.println("2. Release/Vacate a Room");
-        System.out.println("0. Back");
+        System.out.println("0. Return to Previous Menu");
         System.out.print("Choice: ");
         int choice = readInt();
 
         if (choice == 0) return;
 
-        System.out.print("Enter Room ID: ");
-        String roomId = sc.nextLine();
-        StudyRoom room = roomManager.findRoom(roomId);
+        while (true) {
+            System.out.print("Enter Room ID (or '0' to cancel): ");
+            String roomId = sc.nextLine();
 
-        if (room == null) {
-            System.out.println("Room not found.");
-            return;
-        }
+            if (roomId.equals("0")) {
+                System.out.println("Room action cancelled.");
+                break; // Exit the loop and return to the menu
+            }
 
-        if (choice == 1) {
-            room.reserveRoom(currentUser);
-        } else if (choice == 2) {
-            room.releaseRoom();
+            StudyRoom room = roomManager.findRoom(roomId);
+
+            if (room == null) {
+                // If room isn't found, print an error and the loop automatically restarts
+                System.out.println("Error: Room not found. Please try again.");
+                continue; // Skips the rest of the loop and starts from the top
+            }
+
+            if (choice == 1) {
+                // reserveRoom returns true if it worked, false if someone is already inside
+                boolean success = room.reserveRoom(currentUser);
+                if (success) {
+                    break; // EXIT loop ONLY if reservation was successful
+                }
+            } else if (choice == 2) {
+                room.releaseRoom();
+                break; // Exit loop after successfully releasing
+            }
         }
     }
 
