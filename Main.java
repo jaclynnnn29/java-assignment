@@ -36,7 +36,7 @@ public class Main {
 
         boolean hasUsers = manager.loadData();
         boolean hasCatalog = catalogManager.loadData();
-        boolean hasRooms = roomManager.loadData();
+        roomManager.loadData();
         transManager.loadData();
         
         if (!hasUsers){
