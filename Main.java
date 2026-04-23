@@ -122,9 +122,9 @@ public class Main {
         currentUser = manager.login(id);
         if (currentUser != null) {
             System.out.println("Login Successfully!");
-            System.out.println("================================================");
-            System.out.println("\n                   Home Page                  ");
-            System.out.println("================================================");
+            System.out.println("\n===================================================");
+            System.out.println("                      Home Page                    ");
+            System.out.println("===================================================");
             System.out.println("Welcome back, " + currentUser.getuserName());
             System.out.println("Your Borrow Limit is: " + currentUser.getBorrowLimit() + 
                             " | Your Duration is: " + currentUser.getBorrowDuration() + " days");
@@ -136,8 +136,8 @@ public class Main {
     public static void display() {
         int choice;
         do {
-            System.out.println("================================================");
-            System.out.println("\n                USER MANAGEMENT               ");
+            System.out.println("\n================================================");
+            System.out.println("                USER MANAGEMENT               ");
             System.out.println("================================================");
             System.out.println("1. View All Users Detail ");
             System.out.println("2. Update User Information");
@@ -188,7 +188,9 @@ public class Main {
 
     // Registration 
     private static void register() {
-        System.out.println("\n ===== REGISTER NEW USER ===== ");
+        System.out.println("\n================================================");
+        System.out.println("                REGISTER NEW USER               ");
+        System.out.println("================================================");
         System.out.println("Select Type: ");
         System.out.println("1. Student ");
         System.out.println("2. Public Member");
@@ -196,7 +198,9 @@ public class Main {
         int type = readInt();
 
         System.out.println("\n"+"=" .repeat(36));
-        System.out.println("===== REGISTRATION INFORMATION ===== ");
+        System.out.println("\n================================================");
+        System.out.println("            REGISTRATION INFORMATION            ");
+        System.out.println("================================================");
         System.out.println("=" .repeat(36));
 
         String name = getNonEmptyInput("Enter Name: ");
@@ -245,15 +249,20 @@ public class Main {
     }
 
     private static void staffRegister() {
-    System.out.println("\n ===== STAFF REGISTRATION ===== ");
+    System.out.println("\n================================================");
+    System.out.println("               STAFF REGISTRATION               ");
+    System.out.println("================================================");
+    System.out.println("================================================");
     System.out.println("1. Faculty");
     System.out.println("2. Librarian");
     System.out.print("Choice: ");
     int type = readInt();
 
-    System.out.println("=" .repeat(30));
-    System.out.println("\n ===== REGISTRATION INFORMATION ===== ");
-    System.out.println("=" .repeat(30));
+    System.out.println("=" .repeat(36));
+    System.out.println("\n================================================");
+    System.out.println("            REGISTRATION INFORMATION            ");
+    System.out.println("================================================");
+    System.out.println("=" .repeat(36));
 
     String name = getNonEmptyInput("Enter Name: ");
     String email = getNonEmptyInput("Enter Email: ");
@@ -274,7 +283,9 @@ public class Main {
     public static void bookManagement() {
         int choice;
         do {
-            System.out.println("\n===== CATALOG & BOOK SYSTEM =====");
+            System.out.println("\n================================================");
+            System.out.println("              CATALOG & BOOK SYSTEM             ");
+            System.out.println("================================================");
             System.out.println("1. View All Items (Books/Journals)");
             System.out.println("2. Search Items by Title/Author/ISBN");
             System.out.println("3. Borrow Item");
@@ -377,7 +388,9 @@ public class Main {
     public static void addNewItem() {
         int type = -1;
         while (type < 1 || type > 3) {
-            System.out.println("\n--- Add New Item ---");
+            System.out.println("\n================================================");
+            System.out.println("                  ADD NEW ITEM                  ");
+            System.out.println("================================================");
             System.out.println("1. Add Book");
             System.out.println("2. Add Journal");
             System.out.println("3. Add Digital Book");
