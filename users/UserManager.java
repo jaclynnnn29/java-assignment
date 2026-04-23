@@ -141,9 +141,9 @@ public class UserManager {
     public void deleteUser(String id) {
         boolean removed = userList.removeIf(u -> u.getuserId().equalsIgnoreCase(id));
         if (removed) {
-            System.out.println("User deleted!");
+            System.out.println("*The user with ID [" + id + "] has been vanish successfully.*");
         } else {
-            System.out.println("User ID not found.");
+            System.out.println("Ops! User ID not found.");
         }
     }
     

@@ -175,7 +175,6 @@ public class Main {
                     deleteUsers();
                     break;
                 case 4:
-                    handleRoomReservation();
                     bookManagement();
                     break;
                 case 5:
@@ -302,33 +301,68 @@ public class Main {
     System.out.println("\n================================================");
     System.out.println("               STAFF REGISTRATION               ");
     System.out.println("================================================");
-    System.out.println("1. Faculty");
-    System.out.println("2. Librarian");
-    System.out.print("Choice: ");
-    int type = readInt();
+
+    int type;
+    while (true) {
+        System.out.println("1. Faculty");
+        System.out.println("2. Librarian");
+        System.out.print("Choice: ");
+        type = readInt();
+        if (type == 1 || type == 2) break;
+        System.out.println("Invalid selection! Please choose 1 or 2.");
+    }
 
     System.out.println("=" .repeat(48));
     System.out.println("            REGISTRATION INFORMATION            ");
     System.out.println("=" .repeat(48));
 
-    String name = getNonEmptyInput("Enter Name: ");
-    String email = getNonEmptyInput("Enter Email: ");
+    String name = "";
+    String email = "";
+    boolean isValid = false;
 
+    while (!isValid) {
+        name = getNonEmptyInput("Enter Name: ");
+        email = getNonEmptyInput("Enter Email: ");
+
+        // Simple validation: check if email contains '@' 
+        // (You can add more rules like checking for '.')
+        if (!email.contains("@")) {
+            System.out.println("\n[ERROR] Invalid Email format! It must contain '@'.");
+            System.out.println("Please rewrite the information.\n");
+            continue; // Loop back
+        }
+
+        // Check if Name is purely alphabetic (optional refinement)
+        if (!name.matches("^[a-zA-Z\\s]+$")) {
+            System.out.println("\n[ERROR] Invalid Name! Please use only letters.");
+            System.out.println("Please rewrite the information.\n");
+            continue; // Loop back
+        }
+
+        isValid = true; // If it reaches here, all inputs are valid
+    }
+
+    String newId = "";
     if (type == 1) {
-        System.out.print("Enter Department: ");
         String dept = getNonEmptyInput("Enter Department: ");
-        manager.addFaculty(name, email, dept);
-        String newId = manager.addFaculty(name, email, dept);
-        System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newId );
+        newId = manager.addFaculty(name, email, dept);
     } else if (type == 2) {
-        System.out.print("Enter Access Level (1-5): ");
-        int level = readInt();
-        manager.addLibrarian(name, email, level);
-        String newId = manager.addLibrarian(name, email, level);
-        System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newId );
+        int level;
+        while (true) {
+            System.out.print("Enter Access Level (1-5): ");
+            level = readInt();
+            if (level >= 1 && level <= 5) break;
+            System.out.println("Invalid Level! Please enter a number between 1 and 5.");
+        }
+        newId = manager.addLibrarian(name, email, level);
     }
+
+    System.out.println("\n-------------------------------------------");
     System.out.println("Staff account created successfully!");
-    }
+    System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newId);
+    System.out.println("-------------------------------------------");
+}
+
     
    
     public static void bookManagement() {
@@ -387,9 +421,11 @@ public class Main {
                     }
                     break;
                 case 7:
+                    catalogManager.showAllItems();
                     addNewItem();
                     break;
                 case 8:
+                    catalogManager.showAllItems();
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
