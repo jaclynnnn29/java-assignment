@@ -83,7 +83,10 @@ public class Main {
                 System.out.println("          ||             ||            ||       ");
                 System.out.println("         /  \\          /  \\         /  \\      ");
                 System.out.println("        /____\\        /____\\       /____\\     ");
-                System.out.println("\n=== Welcome to Library Management System ===");
+
+                System.out.println("================================================");                                           ");
+                System.out.println("\n     Welcome to Library Management System     ");
+                System.out.println("================================================");
                 System.out.println("1. Login Existing Account");
                 System.out.println("2. Register New Account");
                 System.out.println("0. Exit System");
@@ -123,7 +126,9 @@ public class Main {
         currentUser = manager.login(id);
         if (currentUser != null) {
             System.out.println("Login Successfully!");
-            System.out.println("\n========== Home Page ========== ");
+            System.out.println("================================================");
+            System.out.println("\n                   Home Page                  ");
+            System.out.println("================================================");
             System.out.println("Welcome back, " + currentUser.getuserName());
             System.out.println("Your Borrow Limit is: " + currentUser.getBorrowLimit() + 
                             " | Your Duration is: " + currentUser.getBorrowDuration() + " days");
@@ -135,10 +140,12 @@ public class Main {
     public static void display() {
         int choice;
         do {
-            System.out.println("\n========== USER MANAGEMENT ==========");
-            System.out.println("1. View All Users Detail (Staff Only)");
-            System.out.println("2. Update User Information (Staff Only)");
-            System.out.println("3. Delete User (Staff Only)");
+            System.out.println("================================================");
+            System.out.println("\n                USER MANAGEMENT               ");
+            System.out.println("================================================");
+            System.out.println("1. View All Users Detail ");
+            System.out.println("2. Update User Information");
+            System.out.println("3. Delete User ");
             System.out.println("4. Book Management");
             System.out.println("5. Register New Staff");
             System.out.println("0. Logout");
