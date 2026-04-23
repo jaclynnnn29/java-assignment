@@ -321,33 +321,38 @@ public class Main {
     }
 
     public static void searchItems() {
-        System.out.print("Enter search keyword (Title, Author, or ISBN): ");
-        String keyword = sc.nextLine().toLowerCase(); 
+        while (true) {
+            System.out.print("Enter search keyword (Title, Author, or ISBN) or '0' to go return: ");
+            String keyword = sc.nextLine().toLowerCase(); 
 
-        // This calls the new method you just added!
-        List<LibraryItem> allItems = catalogManager.getItemList(); 
-        boolean found = false;
-
-        System.out.println("\n--- Search Results ---");
-        // Print the header to match your catalog style
-        System.out.println("=".repeat(150));
-        System.out.printf("%-12s %-15s %-35s %-30s\n", "Status", "ISBN", "Title", "Author");
-        System.out.println("=".repeat(150));
-
-        for (LibraryItem item : allItems) {
-            // We check if the keyword is inside the Title, Author, OR ISBN
-            if (item.getTitle().toLowerCase().contains(keyword) || 
-                item.getAuthor().toLowerCase().contains(keyword) || 
-                item.getItemISBN().toLowerCase().contains(keyword)) {
-                
-                System.out.println(item.toString());
-                found = true;
+            if (keyword.equals("0")) {
+                System.out.println("Returning to Catalog Menu...");
+                break; 
             }
-        }
-        System.out.println("=".repeat(150));
+            // This calls the new method you just added!
+            List<LibraryItem> allItems = catalogManager.getItemList(); 
+            boolean found = false;
 
-        if (!found) {
-            System.out.println("No matching items found for: " + keyword);
+            System.out.println("\n--- Search Results ---");
+            System.out.println("=".repeat(150));
+            System.out.printf("%-12s %-15s %-35s %-30s\n", "Status", "ISBN", "Title", "Author");
+            System.out.println("=".repeat(150));
+
+            for (LibraryItem item : allItems) {
+                // We check if the keyword is inside the Title, Author, OR ISBN
+                if (item.getTitle().toLowerCase().contains(keyword) || 
+                    item.getAuthor().toLowerCase().contains(keyword) || 
+                    item.getItemISBN().toLowerCase().contains(keyword)) {
+                    
+                    System.out.println(item.toString());
+                    found = true;
+                }
+            }
+            System.out.println("=".repeat(150));
+
+            if (!found) {
+                System.out.println("No matching items found for: [" + keyword + "]");
+            }
         }
     }
 
