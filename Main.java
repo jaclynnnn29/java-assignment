@@ -73,9 +73,9 @@ public class Main {
                 System.out.println("|          LIBRARY MANAGEMENT SYSTEM            |");
                 System.out.println("|   =========================================   |");
                 System.out.println("|                                               |");
-                System.out.println("|     |||||||||       [=======]      |#|#|#|    |");
-                System.out.println("|     |||||||||       [=======]      |#|#|#|    |");
-                System.out.println("|     |||||||||       [_______]      |#|#|#|    |");
+                System.out.println("|     |||||||||      [=======]      |#|#|#|     |");
+                System.out.println("|     |||||||||      [=======]      |#|#|#|     |");
+                System.out.println("|     |||||||||      [_______]      |#|#|#|     |");
                 System.out.println("|                                               |");
                 System.out.println("|   =========================================   |");
                 System.out.println(" \\_____________________________________________/ ");
