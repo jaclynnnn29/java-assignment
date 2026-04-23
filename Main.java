@@ -411,11 +411,7 @@ public class Main {
                     break;
                 case 6:
                     if (isStaff) {
-                        System.out.print("Enter Room ID to release: ");
-                        String rid = sc.nextLine();
-                        StudyRoom roomToRelease = roomManager.findRoom(rid);
-                        if (roomToRelease != null) roomToRelease.releaseRoom();
-                        else System.out.println("Room not found.");
+                        handleRoomRelease(); // Call the new method instead of the old inline code
                     } else {
                         System.out.println("Access Denied!");
                     }
@@ -581,6 +577,30 @@ public class Main {
                 break; // EXIT loop ONLY if return was successful
             }
             // If success is false (invalid ISBN), the loop will automatically repeat!
+        }
+    }
+
+    private static void handleRoomRelease() {
+        System.out.println("\n=== RELEASE STUDY ROOM (Staff Only) ===");
+        
+        // Step 1: Display current status so staff can see which rooms are OCCUPIED
+        roomManager.showRoomStatus(); 
+
+        while (true) {
+            System.out.print("Enter Room ID to release (or '0' to return): ");
+            String rid = sc.nextLine();
+
+            if (rid.equals("0")) break;
+
+            StudyRoom roomToRelease = roomManager.findRoom(rid);
+            
+            if (roomToRelease != null) {
+                // Step 2: Perform the release
+                roomToRelease.releaseRoom();
+                break; // Exit after success
+            } else {
+                System.out.println("Error: Room [" + rid + "] not found. Please try again.");
+            }
         }
     }
 
