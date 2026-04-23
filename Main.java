@@ -79,10 +79,6 @@ public class Main {
                 System.out.println("|                                               |");
                 System.out.println("|   =========================================   |");
                 System.out.println(" \\_____________________________________________/ ");
-                System.out.println("          ||             ||            ||       ");
-                System.out.println("          ||             ||            ||       ");
-                System.out.println("         /  \\          /  \\         /  \\      ");
-                System.out.println("        /____\\        /____\\       /____\\     ");
 
                 System.out.println("================================================");                                           
                 System.out.println("      Welcome to Library Management System      ");
