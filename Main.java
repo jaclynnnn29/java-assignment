@@ -197,11 +197,9 @@ public class Main {
         System.out.print("Choice: ");
         int type = readInt();
 
-        System.out.println("\n"+"=" .repeat(36));
-        System.out.println("\n================================================");
+        System.out.println("\n"+"=" .repeat(48));
         System.out.println("            REGISTRATION INFORMATION            ");
-        System.out.println("================================================");
-        System.out.println("=" .repeat(36));
+        System.out.println("=" .repeat(48));
 
         String name = getNonEmptyInput("Enter Name: ");
         String email = getNonEmptyInput("Enter Email: ");
@@ -258,11 +256,9 @@ public class Main {
     System.out.print("Choice: ");
     int type = readInt();
 
-    System.out.println("=" .repeat(36));
-    System.out.println("\n================================================");
+    System.out.println("=" .repeat(48));
     System.out.println("            REGISTRATION INFORMATION            ");
-    System.out.println("================================================");
-    System.out.println("=" .repeat(36));
+    System.out.println("=" .repeat(48));
 
     String name = getNonEmptyInput("Enter Name: ");
     String email = getNonEmptyInput("Enter Email: ");
