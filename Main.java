@@ -246,13 +246,28 @@ public class Main {
 
     // Update 
     private static void updateUsers() {
-        System.out.print("Enter User ID to update: ");
-        String id = sc.nextLine();
+        while (true) {
+            System.out.print("\nEnter User ID to update (or '0' to cancel): ");
+            String id = sc.nextLine();
 
-        String name = getNonEmptyInput("Enter New Name: ");
-        String email = getNonEmptyInput("Enter New Email: ");
+            if (id.equals("0")) {
+                System.out.println("Update cancelled.");
+                break;
+            }
 
-        manager.updateUser(id, name, email);
+            // These already ensure the strings aren't empty
+            String name = getNonEmptyInput("Enter New Name: ");
+            String email = getNonEmptyInput("Enter New Email: ");
+
+            // We check the boolean result from the manager
+            boolean success = manager.updateUser(id, name, email);
+            
+            if (success) {
+                break; // Exit the loop only if everything was valid and the user was found
+            }
+            
+            System.out.println("Please try again with a valid ID and email.");
+        }
     }
 
     // Deletion

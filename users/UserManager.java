@@ -110,16 +110,23 @@ public class UserManager {
         }
     }
     
-    public void updateUser(String userId, String newName, String newEmail) {
+    public boolean updateUser(String userId, String newName, String newEmail) {
         for (User u : userList) {
             if (u.getuserId().equalsIgnoreCase(userId)) {
+                // Validation check for the new email format
+                if (!newEmail.contains("@")) {
+                    System.out.println("Error: Invalid Email format (must contain '@'). Update failed.");
+                    return false; 
+                }
+                
                 u.setuserName(newName);
                 u.setuserEmail(newEmail);
-                System.out.println("Updated successfully for" + userId + "!");
-                return;
+                System.out.println("Updated successfully for ID: " + userId + "!");
+                return true; // Return true to indicate success
             }
         }
-        System.out.println("User ID not found.");
+        System.out.println("Error: User ID [" + userId + "] not found.");
+        return false; // Return false so Main.java knows to loop back
     }
 
     public void deleteUser(String id) {
