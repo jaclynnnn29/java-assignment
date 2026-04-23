@@ -128,6 +128,15 @@ public class UserManager {
         System.out.println("Error: User ID [" + userId + "] not found.");
         return false; // Return false so Main.java knows to loop back
     }
+    //check if user exists
+    public User findUserById(String id) {
+        for (User u : userList) {
+            if (u.getuserId().equalsIgnoreCase(id)) {
+                return u;
+            }
+        }
+        return null; // Return null if ID is not found
+    }
 
     public void deleteUser(String id) {
         boolean removed = userList.removeIf(u -> u.getuserId().equalsIgnoreCase(id));

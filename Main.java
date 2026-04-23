@@ -274,13 +274,33 @@ public class Main {
     private static void deleteUsers() {
         System.out.print("\nEnter User ID to delete: ");
         String id = sc.nextLine();
-        manager.deleteUser(id);
+        
+        // Step 1: Check if the user exists using the new helper method
+        User userToDelete = manager.findUserById(id);
+        
+        if (userToDelete != null) {
+            // Step 2: Show a confirmation notification with the User's name
+            System.out.println("\n" + "=".repeat(80));
+            System.out.println("!!! WARNING: This action need to be confirmed carefully !!!");
+            System.out.println("Selected Account: " + userToDelete.getuserName() + " (ID: " + id + ")");
+            System.out.print("Are you sure you want to delete this user? (Type 'YES' to confirm): ");            
+            String confirmation = sc.nextLine();
+            System.out.println("\n" + "=".repeat(80) + "\n");
+            if (confirmation.equalsIgnoreCase("YES")) {
+                // Step 3: Perform the actual deletion
+                manager.deleteUser(id); 
+            } else {
+                System.out.println("*Deletion cancelled. User remains in system.*");
+            }
+        } else {
+            // Step 4: Handle the case where the ID doesn't exist
+            System.out.println("Error: No user found with ID [" + id + "].");
+        }
     }
 
     private static void staffRegister() {
     System.out.println("\n================================================");
     System.out.println("               STAFF REGISTRATION               ");
-    System.out.println("================================================");
     System.out.println("================================================");
     System.out.println("1. Faculty");
     System.out.println("2. Librarian");
