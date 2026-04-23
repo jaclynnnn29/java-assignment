@@ -67,6 +67,22 @@ public class Main {
 
         while (true) {
             if (currentUser == null) {
+                System.out.println("  _____________________________________________  ");
+                System.out.println(" /                                             \\ ");
+                System.out.println("|   =========================================   |");
+                System.out.println("|          LIBRARY MANAGEMENT SYSTEM            |");
+                System.out.println("|   =========================================   |");
+                System.out.println("|                                               |");
+                System.out.println("|     |||||||||       [=======]      |#|#|#|    |");
+                System.out.println("|     |||||||||       [=======]      |#|#|#|    |");
+                System.out.println("|     |||||||||       [_______]      |#|#|#|    |");
+                System.out.println("|                                               |");
+                System.out.println("|   =========================================   |");
+                System.out.println(" \\_____________________________________________/ ");
+                System.out.println("          ||             ||            ||       ");
+                System.out.println("          ||             ||            ||       ");
+                System.out.println("         /  \\          /  \\         /  \\      ");
+                System.out.println("        /____\\        /____\\       /____\\     ");
                 System.out.println("\n=== Welcome to Library Management System ===");
                 System.out.println("1. Login Existing Account");
                 System.out.println("2. Register New Account");
