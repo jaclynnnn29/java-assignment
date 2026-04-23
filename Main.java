@@ -125,6 +125,7 @@ public class Main {
             System.out.println("2. Update User Information (Staff Only)");
             System.out.println("3. Delete User (Staff Only)");
             System.out.println("4. Book Management");
+            System.out.println("5. Register New Staff");
             System.out.println("0. Logout");
             System.out.print("Choice: ");
 
@@ -142,6 +143,9 @@ public class Main {
                     break;
                 case 4:
                     bookManagement();
+                    break;
+                case 5:
+                    staffRegister();
                     break;
                 case 0:
                     currentUser = null;
@@ -220,6 +224,30 @@ public class Main {
         System.out.print("Enter User ID to delete: ");
         String id = sc.nextLine();
         manager.deleteUser(id);
+    }
+
+    private static void staffRegister() {
+    System.out.println("\n ===== STAFF REGISTRATION ===== ");
+    System.out.println("1. Faculty");
+    System.out.println("2. Librarian");
+    System.out.print("Choice: ");
+    int type = readInt();
+
+    System.out.print("Enter Name: ");
+    String name = sc.nextLine();
+    System.out.print("Enter Email: ");
+    String email = sc.nextLine();
+
+    if (type == 1) {
+        System.out.print("Enter Department: ");
+        String dept = sc.nextLine();
+        manager.addFaculty(name, email, dept);
+    } else if (type == 2) {
+        System.out.print("Enter Access Level (1-5): ");
+        int level = readInt();
+        manager.addLibrarian(name, email, level);
+    }
+    System.out.println("Staff account created successfully!");
     }
     
    
