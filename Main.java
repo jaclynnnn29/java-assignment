@@ -177,16 +177,17 @@ public class Main {
         System.out.print("Choice: ");
         int type = readInt();
 
-        System.out.print("Enter Name: ");
-        String name = sc.nextLine();
-        System.out.print("Enter Email: ");
-        String email = sc.nextLine();
+        System.out.println("\n"+"=" .repeat(36));
+        System.out.println("===== REGISTRATION INFORMATION ===== ");
+        System.out.println("=" .repeat(36));
+
+        String name = getNonEmptyInput("Enter Name: ");
+        String email = getNonEmptyInput("Enter Email: ");
 
         switch (type) {
             
             case 1:
-                System.out.print("Enter your Student ID (Number Only): ");
-                String studentId = sc.nextLine();
+                String studentId = getNonEmptyInput("Enter your Student ID (Numbers Only): ");
                 String newId = manager.addStudent(name, email, studentId);
                 System.out.println("\nWelcome to our Library\n");
                 System.out.println("Registration Success for: " + name);
@@ -195,8 +196,7 @@ public class Main {
                 break;
 
             case 2:
-                System.out.print("Enter Phone Number: ");
-                String phoneNumber = sc.nextLine();
+                String phoneNumber = getNonEmptyInput("Enter Phone Number: ");
                 String newpmId = manager.addPublicMember(name, email, phoneNumber);
                 System.out.println("\n-------------------------------------------");
                 System.out.println("Registration Success for: " + name);
@@ -212,10 +212,10 @@ public class Main {
     private static void updateUsers() {
         System.out.print("Enter User ID to update: ");
         String id = sc.nextLine();
-        System.out.print("Enter New Name: ");
-        String name = sc.nextLine();
-        System.out.print("Enter New Email: ");
-        String email = sc.nextLine();
+
+        String name = getNonEmptyInput("Enter New Name: ");
+        String email = getNonEmptyInput("Enter New Email: ");
+
         manager.updateUser(id, name, email);
     }
 
@@ -233,14 +233,16 @@ public class Main {
     System.out.print("Choice: ");
     int type = readInt();
 
-    System.out.print("Enter Name: ");
-    String name = sc.nextLine();
-    System.out.print("Enter Email: ");
-    String email = sc.nextLine();
+    System.out.println("=" .repeat(30));
+    System.out.println("\n ===== REGISTRATION INFORMATION ===== ");
+    System.out.println("=" .repeat(30));
+
+    String name = getNonEmptyInput("Enter Name: ");
+    String email = getNonEmptyInput("Enter Email: ");
 
     if (type == 1) {
         System.out.print("Enter Department: ");
-        String dept = sc.nextLine();
+        String dept = getNonEmptyInput("Enter Department: ");
         manager.addFaculty(name, email, dept);
     } else if (type == 2) {
         System.out.print("Enter Access Level (1-5): ");
@@ -350,12 +352,19 @@ public class Main {
     }
 
     public static void addNewItem() {
-        System.out.println("\n--- Add New Item ---");
-        System.out.println("1. Add Book");
-        System.out.println("2. Add Journal");
-        System.out.println("3. Add Digital Book");
-        System.out.print("Select type: ");
-        int type = readInt();
+        int type = -1;
+        while (type < 1 || type > 3) {
+            System.out.println("\n--- Add New Item ---");
+            System.out.println("1. Add Book");
+            System.out.println("2. Add Journal");
+            System.out.println("3. Add Digital Book");
+            System.out.print("Select type (1-3): ");
+            type = readInt();
+            
+            if (type < 1 || type > 3) {
+                System.out.println("Invalid selection! Please choose 1, 2, or 3.");
+            }
+        }
 
         System.out.print("Enter ISBN: ");
         String isbn = sc.nextLine();
@@ -404,15 +413,22 @@ public class Main {
     }
     
     private static void  handleBorrowing() {
-        System.out.print("Enter ISBN to borrow: ");
-        String isbn = sc.nextLine();
-        LibraryItem item =  catalogManager.findByIsbn(isbn);
-    
-        if (item != null) {
-            // The TransactionManager now checks the currentUser's identity and limit
-            transManager.borrowItem(currentUser, item);
-        } else {
-            System.out.println("Item not found.");
+        while (true) {
+            System.out.print("Enter ISBN to borrow (or '0' to cancel): ");
+            String isbn = sc.nextLine();
+
+            if (isbn.equals("0")) {
+                System.out.println("Borrowing cancelled.");
+                break; // Exit the loop
+            }
+
+            LibraryItem item = catalogManager.findByIsbn(isbn);
+            if (item != null) {
+                transManager.borrowItem(currentUser, item);
+                break; // Exit loop after successful attempt
+            } else {
+                System.out.println("Error: Item with ISBN [" + isbn + "] not found. Please try again.");
+            }
         }
     }
 
@@ -430,30 +446,43 @@ public class Main {
     }
 
     private static void handleRoomReservation() {
-    System.out.println("\n===== STUDY ROOM RESERVATION =====");
-    roomManager.showRoomStatus();
+        System.out.println("\n=== STUDY ROOM RESERVATION ===");
+        roomManager.showRoomStatus();
 
-    System.out.println("\n1. Reserve a Room");
-    System.out.println("2. Release/Vacate a Room");
-    System.out.println("0. Back");
-    System.out.print("Choice: ");
-    int choice = readInt();
+        System.out.println("1. Reserve a Room");
+        System.out.println("2. Release/Vacate a Room");
+        System.out.println("0. Back");
+        System.out.print("Choice: ");
+        int choice = readInt();
 
-    if (choice == 0) return;
+        if (choice == 0) return;
 
-    System.out.print("Enter Room ID: ");
-    String roomId = sc.nextLine();
-    StudyRoom room = roomManager.findRoom(roomId);
+        System.out.print("Enter Room ID: ");
+        String roomId = sc.nextLine();
+        StudyRoom room = roomManager.findRoom(roomId);
 
-    if (room == null) {
-        System.out.println("Room not found.");
-        return;
+        if (room == null) {
+            System.out.println("Room not found.");
+            return;
+        }
+
+        if (choice == 1) {
+            room.reserveRoom(currentUser);
+        } else if (choice == 2) {
+            room.releaseRoom();
+        }
     }
 
-    if (choice == 1) {
-        room.reserveRoom(currentUser);
-    } else if (choice == 2) {
-        room.releaseRoom();
+    private static String getNonEmptyInput(String prompt) {
+        String input = "";
+        while (input.trim().isEmpty()) {
+            System.out.print(prompt);
+            input = sc.nextLine();
+            if (input.trim().isEmpty()) {
+                System.out.println("This field cannot be empty!");
+            }
+        }
+        return input;
     }
-}
+
 }

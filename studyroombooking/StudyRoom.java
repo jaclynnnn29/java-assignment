@@ -48,8 +48,8 @@ public class StudyRoom {
 
     public void displayRoomStatus() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        System.out.println("=" .repeat(30));
-        System.out.println("\n--- Current Study Room Status---");
+        System.out.println("=" .repeat(35));
+        System.out.println("--- Current Study Room Status---");
         System.out.println("Room ID    : " + roomId);
         System.out.println("Capacity   : " + capacity + " persons");
         System.out.println("Status     : " + (isAvailable ? "AVAILABLE" : "OCCUPIED"));
@@ -58,7 +58,7 @@ public class StudyRoom {
             System.out.println("Reserved By: " + reservedBy.getuserName());
             System.out.println("Since      : " + sdf.format(reservationTime));
         }
-        System.out.println("=" .repeat(30));
+        System.out.println("=" .repeat(35)+"\n");
     }
     
     // Getters

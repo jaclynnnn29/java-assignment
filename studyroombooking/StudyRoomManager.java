@@ -14,7 +14,6 @@ public class StudyRoomManager {
     }
 
     public void showRoomStatus() {
-        System.out.println("\n--- Study Room Availability ---");
         for (StudyRoom room : rooms) {
             room.displayRoomStatus();
         }

@@ -88,7 +88,7 @@ public class UserManager {
             }
         });
         
-        System.out.println("\n=== USER LIST ===\n");
+        System.out.println("\n=== USER LIST ===");
         String lastType = "";
         for (User u : userList) {
             String currentType = "";
@@ -101,9 +101,12 @@ public class UserManager {
 
         if (!currentType.equals(lastType)) {
             System.out.println("\n--- " + currentType + "'s User List ---");
+            System.out.println("=".repeat(150));
             lastType = currentType;
+            
         }
             System.out.println(u);
+            System.out.println("=".repeat(150));
         }
     }
     
