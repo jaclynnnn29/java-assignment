@@ -8,9 +8,9 @@ public class StudyRoomManager {
 
     public StudyRoomManager() {
         // Initialize with some default rooms
-        rooms.add(new StudyRoom("R101", 4));
+        rooms.add(new StudyRoom("R101", 3));
         rooms.add(new StudyRoom("R102", 6));
-        rooms.add(new StudyRoom("R103", 2));
+        rooms.add(new StudyRoom("R103", 9));
     }
 
     public void showRoomStatus() {
