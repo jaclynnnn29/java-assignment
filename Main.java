@@ -85,7 +85,7 @@ public class Main {
                 System.out.println("        /____\\        /____\\       /____\\     ");
 
                 System.out.println("================================================");                                           
-                System.out.println("\n     Welcome to Library Management System     ");
+                System.out.println("      Welcome to Library Management System      ");
                 System.out.println("================================================");
                 System.out.println("1. Login Existing Account");
                 System.out.println("2. Register New Account");
