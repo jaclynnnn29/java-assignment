@@ -526,11 +526,31 @@ public class Main {
     public static void deleteItem() {
         System.out.print("Enter ISBN of item to delete: ");
         String isbn = sc.nextLine();
-        boolean success = catalogManager.deleteItem(isbn);
-        if (success) {
-            System.out.println("Item with ISBN " + isbn + " deleted successfully.");
+        
+        // Step 1: Find the item first to show the user what they are deleting
+        LibraryItem itemToDelete = catalogManager.findByIsbn(isbn);
+        
+        if (itemToDelete != null) {
+            // Step 2: Display a confirmation prompt
+            System.out.println("\n" + "=".repeat(80));
+            System.out.println("!!! WARNING: Item Deletion !!!");
+            System.out.println("Target Item: " + itemToDelete.getTitle() + " (ISBN: " + isbn + ")");
+            System.out.print("Are you sure you want to delete this item? (Type 'YES' to confirm): ");
+            
+            String confirmation = sc.nextLine();
+            System.out.println("=".repeat(80) + "\n");
+            
+            if (confirmation.equalsIgnoreCase("YES")) {
+                // Step 3: Perform the actual deletion
+                boolean success = catalogManager.deleteItem(isbn);
+                if (success) {
+                    System.out.println("Success: Item [" + itemToDelete.getTitle() + "] has been removed.");
+                }
+            } else {
+                System.out.println("*Deletion cancelled. Item remains in catalog.*");
+            }
         } else {
-            System.out.println("No item found with ISBN: " + isbn);
+            System.out.println("Error: No item found with ISBN: " + isbn);
         }
     }
     
