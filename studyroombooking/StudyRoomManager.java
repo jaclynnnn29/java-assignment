@@ -1,7 +1,6 @@
 package studyroombooking;
 import java.util.ArrayList;
 import java.util.List;
-import users.User;
 
 public class StudyRoomManager {
     private final List<StudyRoom> rooms = new ArrayList<>();
