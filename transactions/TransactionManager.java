@@ -13,27 +13,27 @@ public class TransactionManager {
     private int transactionCounter = 1000;
 
     // Borrowing Logic
-    public void borrowItem(User user, LibraryItem item) {
+    public boolean borrowItem(User user, LibraryItem item) {
         if (!item.isAvailable()) {
             System.out.println("Error: Item is currently 'On Loan'.");
-            return;
+            return false; // Return false on failure
         }
 
-        // 2. NEW: Check if user has reached their specific BORROW_LIMIT
         int activeLoans = countActiveLoans(user);
         if (activeLoans >= user.getBorrowLimit()) {
             System.out.println("Error: Borrowing limit reached go return some books before you come again! (" + user.getBorrowLimit() + " books max)");
-            return;
+            return false; // Return false on failure
         }
         
         String tid = "T" + (transactionCounter++);
         Transaction newTrans = new Transaction(tid, user, item.getItemISBN(), user.getBorrowDuration());
         
         transactions.add(newTrans);
-        item.setStatus(LibraryItem.STATUS_BORROWED); // Update status to "On Loan"
+        item.setStatus(LibraryItem.STATUS_BORROWED); 
         
         System.out.println("Successfully Borrowed! Due Date: " + newTrans.getDueDate());
         System.out.println("Current active loans: " + (activeLoans + 1) + "/" + user.getBorrowLimit());
+        return true; // Return true on success
     }
     
     private int countActiveLoans(User user) {
@@ -48,9 +48,12 @@ public class TransactionManager {
     }
 
     // Returning Logic
-    public void returnItem(String isbn, CatalogManager catalog) {
+    public boolean returnItem(User user, String isbn, CatalogManager catalog) {
         for (Transaction t : transactions) {
-            if (t.getItemISBN().equals(isbn) && !t.isReturned()) {
+            // Check if ISBN matches, is not returned, AND belongs to the current user
+            if (t.getItemISBN().equalsIgnoreCase(isbn) && !t.isReturned() && 
+                t.getMember().getuserId().equalsIgnoreCase(user.getuserId())) {
+                
                 t.setReturnDate(new Date());
                 
                 // Update Catalog Status
@@ -68,13 +71,17 @@ public class TransactionManager {
                     double fine = fineCalculator.calculateTotalFine(t, daysLate);
                     System.out.printf("Item returned LATE (%d days). Fine Amount: RM%.2f\n", daysLate, fine);
                 } else {
-                    System.out.println("Item returned on time. No fine.");
+                    System.out.println("Good Job you made it on time no compensation needed!");
                 }
-                return;
+                return true; // Tells Main.java the return was successful
             }
         }
-        System.out.println("Good Job you made it on time no compensation needed!");
+        
+        // If the loop finishes without returning true, the item wasn't found in their active loans
+        System.out.println("Error: No active loan found for ISBN [" + isbn + "] under your account. Please try again.");
+        return false; // Tells Main.java the return failed, triggering the loop to ask again
     }
+    
 
     public void showUserActiveLoans(User user) {
         System.out.println("\nYour Current Active Loans");
@@ -106,4 +113,24 @@ public class TransactionManager {
             }
         }
     }
+
+    public void saveData() {
+            try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream("transactions.dat"))) {
+                oos.writeObject(transactions);
+                oos.writeInt(transactionCounter);
+            } catch (java.io.IOException e) { }
+        }
+
+    @SuppressWarnings("unchecked")
+    public boolean loadData() {
+        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream("transactions.dat"))) {
+            List<Transaction> loadedList = (List<Transaction>) ois.readObject();
+            transactions.clear();
+            transactions.addAll(loadedList);
+            transactionCounter = ois.readInt();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }    
 }

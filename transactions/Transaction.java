@@ -3,7 +3,7 @@ import java.util.Date;
 import users.User;
 import java.util.Calendar;
 
-public class Transaction {
+public class Transaction implements java.io.Serializable{
     // Encapsulation: Private attributes [cite: 58]
     private String transactionID;
     private User userID;

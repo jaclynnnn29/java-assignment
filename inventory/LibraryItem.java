@@ -1,7 +1,7 @@
 package inventory;
 
 
-public abstract class LibraryItem {
+public abstract class LibraryItem implements java.io.Serializable {
     private String title;
     private String itemISBN; 
     private String status = STATUS_AVAILABLE; // default constant for available

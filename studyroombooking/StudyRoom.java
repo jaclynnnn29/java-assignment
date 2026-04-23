@@ -3,7 +3,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import users.User;
 
-public class StudyRoom {
+public class StudyRoom implements java.io.Serializable{
     private final String roomId;
     private final int capacity;
     private boolean isAvailable;
