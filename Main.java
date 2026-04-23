@@ -267,10 +267,14 @@ public class Main {
         System.out.print("Enter Department: ");
         String dept = getNonEmptyInput("Enter Department: ");
         manager.addFaculty(name, email, dept);
+        String newId = manager.addFaculty(name, email, dept);
+        System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newId );
     } else if (type == 2) {
         System.out.print("Enter Access Level (1-5): ");
         int level = readInt();
         manager.addLibrarian(name, email, level);
+        String newId = manager.addLibrarian(name, email, level);
+        System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newId );
     }
     System.out.println("Staff account created successfully!");
     }
