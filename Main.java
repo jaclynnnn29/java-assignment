@@ -310,9 +310,8 @@ public class Main {
             boolean isStaff = (currentUser instanceof Librarian || currentUser instanceof Faculty);
             
             if (isStaff) {
-                System.out.println("6. Release Study Room (Staff Only)");
-                System.out.println("7. Add New Item (Staff Only)");
-                System.out.println("8. Delete Item (Staff Only)");
+                System.out.println("6. Add New Item (Staff Only)");
+                System.out.println("7. Delete Item (Staff Only)");
             }
             
             System.out.println("0. Logout");
@@ -338,20 +337,9 @@ public class Main {
                     handleRoomReservation();
                     break;
                 case 6:
-                    if (isStaff) {
-                        System.out.print("Enter Room ID to release: ");
-                        String rid = sc.nextLine();
-                        StudyRoom roomToRelease = roomManager.findRoom(rid);
-                        if (roomToRelease != null) roomToRelease.releaseRoom();
-                        else System.out.println("Room not found.");
-                    } else {
-                        System.out.println("Access Denied!");
-                    }
-                    break;
-                case 7:
                     addNewItem();
                     break;
-                case 8:
+                case 7:
                     if (isStaff) deleteItem(); // Call deletion logic
                     else System.out.println("Access Denied!");
                     break;
