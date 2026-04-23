@@ -223,8 +223,8 @@ public class Main {
             
             case 1:
                 String studentId = getNonEmptyInput("Enter your Student ID (Numbers Only): ");
-                String newId = manager.addStudent(name, email, studentId);
-                System.out.println("\nWelcome to our Library\n");
+                String newId = manager.addStudent(name, email, studentId);             
+                System.out.println("\n-------------------------------------------");
                 System.out.println("Registration Success for: " + name);
                 System.out.println("PLEASE REMEMBER YOUR LOGIN ID: " + newId );
                 System.out.println("-------------------------------------------");
