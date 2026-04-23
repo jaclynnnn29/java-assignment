@@ -59,7 +59,7 @@ public class Main {
             catalogManager.addItem(new Book("Java Programming", "9780134685991", "Herbert Schildt", "Education"));
 
             catalogManager.addItem(new DigitalBook("Clean Code", "9780132350884", "Robert Martin", "PDF", 2.5));
-            catalogManager.addItem(new DigitalBook("Effective Java", "9780134685991", "Joshua Bloch", "PDF", 3.8));
+            catalogManager.addItem(new DigitalBook("Effective Java", "9780134685369", "Joshua Bloch", "PDF", 3.8));
             catalogManager.addItem(new DigitalBook("The Pragmatic Programmer", "9780135957059", "Andrew Hunt", "EPUB", 1.2));
             catalogManager.addItem(new DigitalBook("Design Patterns", "9780201633610", "Erich Gamma", "PDF", 5.4));
             catalogManager.addItem(new DigitalBook("Algorithms", "9780321573513", "Robert Sedgewick", "MOBI", 12.1));
@@ -86,7 +86,7 @@ public class Main {
                 System.out.println("|   =========================================   |");
                 System.out.println(" \\_____________________________________________/ ");
 
-                System.out.println("================================================");                                           
+                System.out.println("\n================================================");                                           
                 System.out.println("      Welcome to Library Management System      ");
                 System.out.println("================================================");
                 System.out.println("1. Login Existing Account");
@@ -167,12 +167,15 @@ public class Main {
                     manager.showAll();
                     break;
                 case 2:
+                    manager.showAll();
                     updateUsers();
                     break;
                 case 3:
+                    manager.showAll();
                     deleteUsers();
                     break;
                 case 4:
+                    handleRoomReservation();
                     bookManagement();
                     break;
                 case 5:
@@ -254,7 +257,7 @@ public class Main {
 
     // Deletion
     private static void deleteUsers() {
-        System.out.print("Enter User ID to delete: ");
+        System.out.print("\nEnter User ID to delete: ");
         String id = sc.nextLine();
         manager.deleteUser(id);
     }
@@ -512,43 +515,35 @@ public class Main {
 
     private static void handleRoomReservation() {
         System.out.println("\n=== STUDY ROOM RESERVATION ===");
+
         roomManager.showRoomStatus();
-
-        System.out.println("1. Reserve a Room");
-        System.out.println("2. Release/Vacate a Room");
-        System.out.println("0. Return to Previous Menu");
-        System.out.print("Choice: ");
-        int choice = readInt();
-
-        if (choice == 0) return;
-
+        // Added a while loop so it repeats until successful or cancelled
         while (true) {
-            System.out.print("Enter Room ID (or '0' to cancel): ");
+            System.out.print("Enter Room ID to reserve (or '0' to return to menu): ");
             String roomId = sc.nextLine();
 
+            // Option to go back to the previous menu
             if (roomId.equals("0")) {
-                System.out.println("Room action cancelled.");
-                break; // Exit the loop and return to the menu
+                System.out.println("Returning to previous menu.");
+                break; 
             }
 
             StudyRoom room = roomManager.findRoom(roomId);
 
             if (room == null) {
                 // If room isn't found, print an error and the loop automatically restarts
-                System.out.println("Error: Room not found. Please try again.");
-                continue; // Skips the rest of the loop and starts from the top
+                System.out.println("Error: Room [" + roomId + "] not found. Please try again.");
+                continue; 
             }
 
-            if (choice == 1) {
-                // reserveRoom returns true if it worked, false if someone is already inside
-                boolean success = room.reserveRoom(currentUser);
-                if (success) {
-                    break; // EXIT loop ONLY if reservation was successful
-                }
-            } else if (choice == 2) {
-                room.releaseRoom();
-                break; // Exit loop after successfully releasing
+            // Attempt to reserve the room
+            // reserveRoom returns true if it worked, false if already occupied
+            boolean success = room.reserveRoom(currentUser);
+            
+            if (success) {
+                break; // Exit the loop and return to the menu only after a successful reservation
             }
+            // If success is false (room occupied), the loop will repeat for another input
         }
     }
 
