@@ -101,12 +101,12 @@ public class UserManager {
 
         if (!currentType.equals(lastType)) {
             System.out.println("\n--- " + currentType + "'s User List ---");
-            System.out.println("=".repeat(150));
+            System.out.println("=".repeat(130));
             lastType = currentType;
             
         }
             System.out.println(u);
-            System.out.println("=".repeat(150));
+            System.out.println("=".repeat(130));
         }
     }
     

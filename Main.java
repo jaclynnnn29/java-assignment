@@ -449,9 +449,9 @@ public class Main {
             boolean found = false;
 
             System.out.println("\n--- Search Results ---");
-            System.out.println("=".repeat(150));
+            System.out.println("=".repeat(130));
             System.out.printf("%-12s %-15s %-35s %-30s\n", "Status", "ISBN", "Title", "Author");
-            System.out.println("=".repeat(150));
+            System.out.println("=".repeat(130));
 
             for (LibraryItem item : allItems) {
                 // We check if the keyword is inside the Title, Author, OR ISBN
@@ -463,7 +463,7 @@ public class Main {
                     found = true;
                 }
             }
-            System.out.println("=".repeat(150));
+            System.out.println("=".repeat(130));
 
             if (!found) {
                 System.out.println("No matching items found for: [" + keyword + "]");
